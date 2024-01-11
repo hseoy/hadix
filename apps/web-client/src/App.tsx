@@ -1,12 +1,10 @@
-import { Stack, Styled } from '~/modules/common';
+import { AppHeader, Layout } from './modules/layout';
 
 export const App = () => {
   return (
-    <Stack _color="blue">
-      <Styled _color="red" as="h1">
-        Hello
-      </Styled>
+    <Layout>
+      <AppHeader appName="Playground Tool" />
       <h2>World</h2>
-    </Stack>
+    </Layout>
   );
 };

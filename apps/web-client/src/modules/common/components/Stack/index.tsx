@@ -1,7 +1,7 @@
-import { Flex, FlexProps } from '../Flex';
+import { Flex, FlexProps } from '../Flex/Flex';
 
 export type StackProps = Omit<FlexProps, 'flexDirection'>;
 
 export const Stack = (props: StackProps) => {
-  return <Flex {...props} _flexDirection="column" />;
+  return <Flex {...props} flexDirection="column" />;
 };
