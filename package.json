@@ -1,0 +1,43 @@
+{
+  "name": "playground-tool",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "pnpm@8.10.0",
+  "scripts": {
+    "prepare": "husky install",
+    "lint:fix": "eslint --ext .tsx --ext .ts . --fix",
+    "prettier:write": "prettier --write .",
+    "precommit": "lint-staged"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.2",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-storybook": "^0.5.13",
+    "eslint-plugin-testing-library": "^5.11.1",
+    "eslint-plugin-unicorn": "^50.0.1",
+    "husky": "^7.0.4",
+    "jest": "^29.7.0",
+    "jest-transform-stub": "^2.0.0",
+    "lint-staged": "^12.5.0",
+    "prettier": "^2.8.8",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.0.2"
+  }
+}
