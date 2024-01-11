@@ -1,4 +1,4 @@
-import { Stack, Styled } from '~modules/common';
+import { Stack, Styled } from '~/modules/common';
 
 export const App = () => {
   return (
