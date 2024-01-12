@@ -1,4 +1,4 @@
-import { Flex } from '~/modules/common';
+import { Flex, Typography } from '~/modules/common';
 
 import styles from './AppHeader.module.scss';
 
@@ -7,5 +7,11 @@ export interface AppHeaderProps {
 }
 
 export const AppHeader = ({ appName }: AppHeaderProps) => {
-  return <Flex className={styles['app-header']}>{appName}</Flex>;
+  return (
+    <Flex alignItems="center" className={styles['app-header']}>
+      <Typography variant="h5" weight="bold">
+        {appName}
+      </Typography>
+    </Flex>
+  );
 };
