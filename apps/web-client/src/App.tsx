@@ -1,10 +1,9 @@
-import { AppHeader, Layout } from './modules/layout';
+import { AppLayout } from './modules/app-layout';
 
 export const App = () => {
   return (
-    <Layout>
-      <AppHeader appName="Playground" />
-      <h2>World</h2>
-    </Layout>
+    <AppLayout appName="Playground">
+      <h1>Hello World</h1>
+    </AppLayout>
   );
 };

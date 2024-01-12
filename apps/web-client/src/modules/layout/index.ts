@@ -1,2 +1,2 @@
-export * from './components/AppHeader/AppHeader';
 export * from './components/Layout';
+export * from './components/Sidebar/Sidebar';

@@ -1,9 +1,7 @@
-import { Stack } from '~/modules/common';
+import { Stack, StackProps } from '~/modules/common';
 
-export interface LayoutProps {
-  children: React.ReactNode;
-}
+export type LayoutProps = StackProps;
 
-export const Layout = ({ children }: LayoutProps) => {
-  return <Stack>{children}</Stack>;
+export const Layout = (props: LayoutProps) => {
+  return <Stack {...props} />;
 };

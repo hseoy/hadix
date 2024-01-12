@@ -3,7 +3,7 @@ import { Flex, Typography } from '~/modules/common';
 import styles from './AppHeader.module.scss';
 
 export interface AppHeaderProps {
-  appName: string;
+  appName?: string;
 }
 
 export const AppHeader = ({ appName }: AppHeaderProps) => {
