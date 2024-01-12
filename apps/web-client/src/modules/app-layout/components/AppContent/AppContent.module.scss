@@ -1,3 +1,5 @@
 .app-content {
-  margin-left: 300px;
+  &--with-app-sidebar {
+    margin-left: 300px;
+  }
 }
