@@ -3,7 +3,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 
 import { AppLayout } from './modules/app-layout';
 import { Redirect } from './modules/common';
-import { WorkSpaceList } from './pages/workspace/WorkspaceList/WorkspaceList';
+import { WorkSpaceListPage } from './page-modules/workspace-list';
 
 export const AppRoutes = () => {
   return (
@@ -28,7 +28,7 @@ export const AppRoutes = () => {
               }
             />
 
-            <Route path="/workspaces" element={<WorkSpaceList />} />
+            <Route path="/workspaces" element={<WorkSpaceListPage />} />
           </Route>
         </Route>
       </Routes>
