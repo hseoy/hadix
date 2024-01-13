@@ -3,7 +3,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 
 import { AppLayout } from './modules/app-layout';
 import { Redirect } from './modules/common';
-import { WorkSpaceListPage } from './page-modules/workspace-list';
+import { AppListPage } from './page-modules/app-list';
 
 export const AppRoutes = () => {
   return (
@@ -21,14 +21,11 @@ export const AppRoutes = () => {
             <Route
               path="/"
               element={
-                <Redirect
-                  to="/workspaces"
-                  navigateOptions={{ replace: true }}
-                />
+                <Redirect to="/apps" navigateOptions={{ replace: true }} />
               }
             />
 
-            <Route path="/workspaces" element={<WorkSpaceListPage />} />
+            <Route path="/apps" element={<AppListPage />} />
           </Route>
         </Route>
       </Routes>
