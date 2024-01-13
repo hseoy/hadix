@@ -13,7 +13,7 @@ export const AppRoutes = () => {
           <Route
             path="/"
             element={
-              <AppLayout appName="Playground" hideSidebar>
+              <AppLayout appName="Playground">
                 <Outlet />
               </AppLayout>
             }

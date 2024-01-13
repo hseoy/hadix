@@ -1,6 +1,8 @@
 import { ReactNode, useEffect } from 'react';
 import { NavigateOptions, To, useNavigate } from 'react-router-dom';
 
+import { Maybe } from '../Maybe/Maybe';
+
 export interface RedirectProps {
   to?: To;
   children?: ReactNode;
@@ -19,7 +21,5 @@ export const Redirect = ({ to, navigateOptions, children }: RedirectProps) => {
     }
   }, [to, navigateOptions]);
 
-  if (to) return null;
-
-  return children;
+  return <Maybe test={!to}>{children}</Maybe>;
 };
