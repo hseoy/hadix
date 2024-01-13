@@ -1,9 +1,11 @@
-import { AppLayout } from './modules/app-layout';
+import { BrowserRouter } from 'react-router-dom';
+
+import { AppRoutes } from './AppRoutes';
 
 export const App = () => {
   return (
-    <AppLayout appName="Playground" hideSidebar>
-      <h1>Hello World</h1>
-    </AppLayout>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 };
