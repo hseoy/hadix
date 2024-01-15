@@ -1,9 +1,17 @@
 import '~/styles/global.scss';
+// Theme 적용
+import '~/modules/style-theme/index.scss';
+import 'dayjs/locale/ko';
 
+import dayjs from 'dayjs';
+import relativeTimeDayjsPlugin from 'dayjs/plugin/relativeTime';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { App } from '~/App';
+
+dayjs.locale('ko');
+dayjs.extend(relativeTimeDayjsPlugin);
 
 const $root = document.getElementById('root');
 
@@ -14,5 +22,5 @@ if ($root === null) {
 ReactDOM.createRoot($root).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
 );

@@ -7,6 +7,7 @@ export interface FlexProps {
   flexDirection?: CSSProperties['flexDirection'];
   justifyContent?: CSSProperties['justifyContent'];
   alignItems?: CSSProperties['alignItems'];
+  gap?: CSSProperties['gap'];
   className?: string;
   children?: React.ReactNode;
   style?: CSSProperties;
@@ -17,6 +18,7 @@ export const Flex = ({
   flexDirection,
   justifyContent,
   alignItems,
+  gap,
   className,
   children,
   style,
@@ -27,9 +29,9 @@ export const Flex = ({
       className={classnames(
         className,
         styles.flex,
-        fullHeight && styles['flex--full-height'],
+        fullHeight && styles['flex--full-height']
       )}
-      style={{ ...style, flexDirection, justifyContent, alignItems }}
+      style={{ ...style, flexDirection, justifyContent, alignItems, gap }}
     >
       {children}
     </div>
