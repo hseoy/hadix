@@ -1,17 +1,14 @@
 import { create } from 'zustand';
 
 export type StyleTheme = 'dark' | 'light';
-export interface ThemeStore {
+export interface StyleThemeStore {
   theme: StyleTheme;
   setTheme: (theme: StyleTheme) => void;
 }
 
-export const useThemeStore = create<ThemeStore>((set) => ({
+export const useStyleThemeStore = create<StyleThemeStore>((set) => ({
   theme: window?.matchMedia('(prefers-color-scheme: dark)')?.matches
     ? 'dark'
     : 'light',
-  setTheme: (theme) => {
-    document.documentElement.setAttribute('data-theme', theme);
-    set({ theme });
-  },
+  setTheme: (theme) => set({ theme }),
 }));
