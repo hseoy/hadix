@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export type StyleTheme = 'dark' | 'light';
 export interface StyleThemeStore {
@@ -6,9 +7,14 @@ export interface StyleThemeStore {
   setTheme: (theme: StyleTheme) => void;
 }
 
-export const useStyleThemeStore = create<StyleThemeStore>((set) => ({
-  theme: window?.matchMedia('(prefers-color-scheme: dark)')?.matches
-    ? 'dark'
-    : 'light',
-  setTheme: (theme) => set({ theme }),
-}));
+export const useStyleThemeStore = create(
+  persist<StyleThemeStore>(
+    (set) => ({
+      theme: window?.matchMedia('(prefers-color-scheme: dark)')?.matches
+        ? 'dark'
+        : 'light',
+      setTheme: (theme) => set({ theme }),
+    }),
+    { name: 'style-theme' }
+  )
+);
