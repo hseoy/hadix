@@ -1,5 +1,5 @@
 .app-header {
-  background-color: #181a1c;
-  color: #fff;
+  background-color: var(--app-header-bg-color);
+  color: var(--app-header-text-color);
   padding: 16px;
 }

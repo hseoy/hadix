@@ -19,3 +19,27 @@ body {
   height: 100%;
   margin: 0 auto;
 }
+
+html[data-theme='dark'] {
+  --primary-bg-color: #{$black1};
+  --secondary-bg-color: #{$black2};
+  --primary-text-color: #{$white1};
+
+  // App Layout
+  --app-header-bg-color: #{$black2};
+  --app-header-text-color: #{$white1};
+  --app-body-bg-color: #{$black1};
+  --app-body-text-color: #{$white1};
+}
+
+html[data-theme='light'] {
+  --primary-bg-color: #{$black1};
+  --secondary-bg-color: #{$black2};
+  --primary-text-color: #{$white1};
+
+  // App Layout
+  --app-header-bg-color: #{$black2};
+  --app-header-text-color: #{$white1};
+  --app-body-bg-color: #{$white1};
+  --app-body-text-color: #{$black2};
+}
