@@ -34,7 +34,7 @@ export const Typography = ({
       className={classNames(
         className,
         styles[`typography__weight--${weight}`],
-        styles[`typography__variant--${variant}`],
+        styles[`typography__variant--${variant}`]
       )}
       style={{ color }}
     >

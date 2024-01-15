@@ -33,7 +33,7 @@ export const Sidebar = ({
     <Stack
       className={classNames(
         styles.sidebar,
-        styles[`sidebar__position--${position}`],
+        styles[`sidebar__position--${position}`]
       )}
       style={{ ...style, width, height }}
     >
