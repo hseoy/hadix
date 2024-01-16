@@ -1,0 +1,9 @@
+@mixin define-theme-color($name, $light, $dark) {
+  html[data-theme='light'] {
+    --#{$name}: #{$light};
+  }
+
+  html[data-theme='dark'] {
+    --#{$name}: #{$dark};
+  }
+}

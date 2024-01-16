@@ -1,3 +1,6 @@
+@include define-theme-color('app-header-bg-color', #{$black2}, #{$black2});
+@include define-theme-color('app-header-text-color', #{$white1}, #{$white1});
+
 .app-header {
   background-color: var(--app-header-bg-color);
   color: var(--app-header-text-color);
