@@ -222,6 +222,9 @@ importers:
 
   apps/web-client:
     dependencies:
+      '@remixicon/react':
+        specifier: ^4.1.1
+        version: 4.1.1(react@18.2.0)
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -1521,6 +1524,14 @@ packages:
   /@remix-run/router@1.14.2:
     resolution: {integrity: sha512-ACXpdMM9hmKZww21yEqWwiLws/UPLhNKvimN8RrYSqPSvB3ov7sLvAcfvaxePeLvccTQKGdkDIhLYApZVDFuKg==}
     engines: {node: '>=14.0.0'}
+    dev: false
+
+  /@remixicon/react@4.1.1(react@18.2.0):
+    resolution: {integrity: sha512-a2WSRfuv94OwSX2AK2IRhDEYAYxL0AOeF5+3boTILpC41e8Mp8ZJ7b2980ekOnJsnkcBofcHi4/GDR9cKTl/Bg==}
+    peerDependencies:
+      react: '>=18.2.0'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@sinclair/typebox@0.27.8:
