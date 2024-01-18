@@ -32,14 +32,15 @@ export const ItemCard = ({
 
   return (
     <Stack gap="20px" className={classNames(styles['item-card'], className)}>
-      <div className={styles['item-card__thumbnail-container']}>
-        <div style={{ ...thumbnailSize }}>
-          <img
-            src={thumbnail}
-            className={styles['item-card__thumbnail-img']}
-            alt=""
-          />
-        </div>
+      <div
+        className={styles['item-card__thumbnail-container']}
+        style={{ ...thumbnailSize }}
+      >
+        <img
+          src={thumbnail}
+          className={styles['item-card__thumbnail-img']}
+          alt=""
+        />
 
         <Maybe test={!!renderHover}>
           <div className={styles['item-card__hover-section']}>

@@ -1,4 +1,4 @@
-@mixin define-theme-color($name, $light, $dark) {
+@mixin define-theme-var($name, $light, $dark) {
   html[data-theme='light'] {
     --#{$name}: #{$light};
   }
