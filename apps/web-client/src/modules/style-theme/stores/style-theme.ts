@@ -5,6 +5,7 @@ export type StyleTheme = 'dark' | 'light';
 export interface StyleThemeStore {
   theme: StyleTheme;
   setTheme: (theme: StyleTheme) => void;
+  toggleTheme: () => void;
 }
 
 export const useStyleThemeStore = create(
@@ -14,6 +15,11 @@ export const useStyleThemeStore = create(
         ? 'dark'
         : 'light',
       setTheme: (theme) => set({ theme }),
+      toggleTheme: () =>
+        set((prev) => ({
+          ...prev,
+          theme: prev.theme === 'dark' ? 'light' : 'dark',
+        })),
     }),
     { name: 'style-theme' }
   )

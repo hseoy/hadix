@@ -1,5 +1,9 @@
 .app-header {
   background-color: $black2;
   color: $white1;
-  padding: 16px;
+  height: 60px;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 16px;
+  flex: none;
 }
