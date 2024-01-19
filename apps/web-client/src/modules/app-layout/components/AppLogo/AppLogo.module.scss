@@ -1,0 +1,32 @@
+.animated-letter-container {
+  display: inline-block;
+  margin-right: 10px;
+
+  .animated-letter {
+    display: inline-block;
+    font-family: 'LeckerilOne', sans-serif;
+    animation: littleRotate 1.5s infinite;
+  }
+}
+
+.logo {
+  font-family: 'LeckerilOne', sans-serif;
+  display: inline-block;
+  letter-spacing: 2px;
+}
+
+@keyframes littleRotate {
+  from,
+  to {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-50deg);
+  }
+  75% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}

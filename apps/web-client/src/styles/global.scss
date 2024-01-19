@@ -19,3 +19,11 @@ body {
   height: 100%;
   margin: 0 auto;
 }
+
+/** 용량을 줄이기 위해 'playground'의 대소문자만 폰트에 포함함.*/
+@font-face {
+  font-family: 'LeckerilOne';
+  font-weight: 400;
+  src: url('/fonts/LeckerilOne/LeckerliOne-Regular.subset.ttf')
+    format('truetype');
+}

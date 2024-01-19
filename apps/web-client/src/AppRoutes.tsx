@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
-import { AppLayout } from './modules/app-layout';
+import { AppLayout, AppLogo } from './modules/app-layout';
 import { Redirect } from './modules/common';
 import { AppListPage } from './page-modules/app-list';
 
@@ -13,7 +13,7 @@ export const AppRoutes = () => {
           <Route
             path="/"
             element={
-              <AppLayout appName="Playground">
+              <AppLayout appName={<AppLogo />}>
                 <Outlet />
               </AppLayout>
             }

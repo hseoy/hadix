@@ -4,7 +4,7 @@ import { ThemeSwitch } from '~/modules/style-theme';
 import styles from './AppHeader.module.scss';
 
 export interface AppHeaderProps {
-  appName?: string;
+  appName?: React.ReactNode;
 }
 
 export const AppHeader = ({ appName }: AppHeaderProps) => {
