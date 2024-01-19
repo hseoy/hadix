@@ -42,6 +42,8 @@
     flex-direction: column;
     opacity: 0;
     transition: 0.3s;
+
+    color: $white1;
   }
 
   &__thumbnail-container:hover &__hover-section {
