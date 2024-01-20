@@ -1,18 +1,23 @@
-.animated-letter-container {
-  display: inline-block;
-  margin-right: 10px;
-
-  .animated-letter {
-    display: inline-block;
-    font-family: 'LeckerilOne', sans-serif;
-    animation: littleRotate 1.5s infinite;
-  }
-}
-
 .logo {
   font-family: 'LeckerilOne', sans-serif;
   display: inline-block;
+  color: $white1;
+  text-decoration: none;
   letter-spacing: 2px;
+
+  .animated-letter-container {
+    display: inline-block;
+    margin-right: 10px;
+
+    .animated-letter {
+      display: inline-block;
+      font-family: 'LeckerilOne', sans-serif;
+    }
+  }
+
+  &:hover .animated-letter {
+    animation: littleRotate 1.5s infinite;
+  }
 }
 
 @keyframes littleRotate {
