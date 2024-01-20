@@ -1,4 +1,7 @@
 .app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: $black2;
   color: $white1;
   height: 60px;

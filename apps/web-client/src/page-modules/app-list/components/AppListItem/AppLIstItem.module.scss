@@ -1,0 +1,48 @@
+.app-list-item {
+  margin: 10px;
+}
+
+.hover-section-link {
+  width: 100%;
+  height: 100%;
+}
+
+.hover-section {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  justify-content: space-between;
+
+  &__meta {
+    color: $white2;
+    justify-content: flex-end;
+    padding: 5px 10px;
+    gap: 5px;
+  }
+
+  &__footer {
+    align-items: flex-start;
+    padding: 16px;
+  }
+  &__app-id {
+    color: $gray2;
+  }
+  &:hover {
+    .hover-section__arrow {
+      animation: hover-section__arrow-bounce-animation 1s infinite;
+      transition: 1s;
+    }
+  }
+}
+
+@keyframes hover-section__arrow-bounce-animation {
+  0% {
+    transform: translateX(-5px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(5px);
+    opacity: 1;
+  }
+}

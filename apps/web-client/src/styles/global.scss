@@ -15,6 +15,12 @@ body {
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', 'Cascadia Code';
 }
 
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
 #root {
   height: 100%;
   margin: 0 auto;
