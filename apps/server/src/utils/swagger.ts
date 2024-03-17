@@ -8,8 +8,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
  */
 export function setupSwagger(app: INestApplication): void {
   const options = new DocumentBuilder()
-    .setTitle('Playground Tool API Docs')
-    .setDescription('Playground Tool의 API 명세를 기술합니다')
+    .setTitle('Hadix-Studio API Docs')
     .setVersion('0.0.1')
     .build();
 

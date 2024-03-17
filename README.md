@@ -1,3 +1,12 @@
-# Playground Tool
+# Hadix Studio
 
-아이디어를 실험하고 프로토타입 이상의 것을 만들어볼 수 있는 놀이터
+Hadix Studio is an open-source Low Code Application Builder aimed at designing and developing production-level applications.
+
+> This project is almost just getting started.
+
+## Inspiration
+
+- [Retool](https://retool.com/)
+- [Bubble.io](https://bubble.io/)
+- [Woowabros's Mandao](https://techblog.woowahan.com/2719)
+- [jhaemin's Radix Studio](https://github.com/jhaemin/radix-studio).

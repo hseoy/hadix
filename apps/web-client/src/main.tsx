@@ -1,6 +1,4 @@
 import '~/styles/global.scss';
-// Theme 적용
-import '~/modules/style-theme/index.scss';
 import 'dayjs/locale/ko';
 
 import dayjs from 'dayjs';

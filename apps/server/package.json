@@ -1,5 +1,5 @@
 {
-  "name": "@playground-tool/server",
+  "name": "@hadix-studio/server",
   "version": "0.0.1",
   "private": true,
   "scripts": {

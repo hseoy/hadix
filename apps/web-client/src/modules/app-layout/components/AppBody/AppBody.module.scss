@@ -1,7 +1,0 @@
-@include define-theme-var('app-body-bg-color', #{$white1}, #{$black1});
-@include define-theme-var('app-body-text-color', #{$black2}, #{$white1});
-
-.app-body {
-  background-color: var(--app-body-bg-color);
-  color: var(--app-body-text-color);
-}

@@ -1,5 +1,5 @@
 {
-  "name": "playground-tool",
+  "name": "hadix-studio",
   "private": true,
   "workspaces": [
     "packages/*"
