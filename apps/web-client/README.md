@@ -1,1 +1,1 @@
-# Hadix Studio - Web Client
+# Hadix - Web Client

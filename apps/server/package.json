@@ -1,5 +1,5 @@
 {
-  "name": "@hadix-studio/server",
+  "name": "@hadix/server",
   "version": "0.0.1",
   "private": true,
   "scripts": {

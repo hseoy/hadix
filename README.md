@@ -1,6 +1,6 @@
-# Hadix Studio
+# Hadix
 
-Hadix Studio is an open-source Low Code Application Builder aimed at designing and developing production-level applications.
+Hadix is an open-source Low Code Application Builder aimed at designing and developing production-level applications.
 
 > This project is almost just getting started.
 

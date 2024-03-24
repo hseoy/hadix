@@ -1,1 +1,1 @@
-# Hadix Studio - Server
+# Hadix - Server

@@ -8,7 +8,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
  */
 export function setupSwagger(app: INestApplication): void {
   const options = new DocumentBuilder()
-    .setTitle('Hadix-Studio API Docs')
+    .setTitle('Hadix API Docs')
     .setVersion('0.0.1')
     .build();
 
