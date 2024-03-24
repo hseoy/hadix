@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '~': path.join(__dirname, './src'),
+      '@app-info': path.join(__dirname, './app-info.json'),
     },
   },
   css: {

@@ -1,6 +1,8 @@
+import '@radix-ui/themes/styles.css';
 import '~/styles/global.scss';
 import 'dayjs/locale/ko';
 
+import { Theme } from '@radix-ui/themes';
 import dayjs from 'dayjs';
 import relativeTimeDayjsPlugin from 'dayjs/plugin/relativeTime';
 import React from 'react';
@@ -19,6 +21,8 @@ if ($root === null) {
 
 ReactDOM.createRoot($root).render(
   <React.StrictMode>
-    <App />
+    <Theme>
+      <App />
+    </Theme>
   </React.StrictMode>
 );

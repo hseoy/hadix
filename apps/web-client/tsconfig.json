@@ -24,7 +24,8 @@
 
     "paths": {
       "~/*": ["./src/*"],
-      "~modules/*": ["./src/modules/*"]
+      "~modules/*": ["./src/modules/*"],
+      "@app-info": ["./app-info.json"]
     }
   },
   "include": ["src"],

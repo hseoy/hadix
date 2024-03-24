@@ -165,6 +165,7 @@ module.exports = {
         map: [
           ['~', path.resolve(__dirname, './src')],
           ['~modules', path.resolve(__dirname, './src/modules/')],
+          ['@app-info', path.resolve(__dirname, './app-info.json')],
         ],
         extensions: ['.js', '.jsx', '.ts', '.d.ts', '.tsx'],
       },

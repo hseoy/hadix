@@ -1,9 +1,13 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import { GlobalHeader } from './modules/layouts/components/GlobalHeader';
 
 export const App = () => {
   return (
     <BrowserRouter>
-      <h1>Hadix</h1>
+      <Routes>
+        <Route path="/" element={<GlobalHeader />} />
+      </Routes>
     </BrowserRouter>
   );
 };
