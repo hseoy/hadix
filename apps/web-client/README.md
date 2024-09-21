@@ -1,1 +1,0 @@
-# Hadix - Web Client
