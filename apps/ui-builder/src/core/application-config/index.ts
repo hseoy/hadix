@@ -6,9 +6,12 @@ export class HadixApplicationConfig {
   actions: ActionDefinition[];
   layout: ComponentDefinition | null;
 
-  constructor() {
-    this.actions = [];
-    this.layout = null;
+  constructor(
+    actions: ActionDefinition[] = [],
+    layout: ComponentDefinition | null = null,
+  ) {
+    this.actions = actions;
+    this.layout = layout;
   }
 
   loadFromJSON(jsonConfig: string) {

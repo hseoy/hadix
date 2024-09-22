@@ -1,20 +1,14 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { run } from '../../core/example';
+import { useRef } from 'react';
 import { CanvasPage } from './CanvasPage';
 
-export function Canvas() {
-  const rootElementRef = useRef<HTMLDivElement | null>(null);
-  const dragConstraintsRef = useRef<HTMLDivElement | null>(null);
-  const isRunRef = useRef<boolean>(false);
+interface CanvasProps {
+  rootElementRef: React.RefObject<HTMLDivElement>;
+}
 
-  useEffect(() => {
-    if (!rootElementRef.current) return;
-    if (isRunRef.current) return;
-    run(rootElementRef.current);
-    isRunRef.current = true;
-  }, [rootElementRef.current]);
+export function Canvas({ rootElementRef }: CanvasProps) {
+  const dragConstraintsRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <div

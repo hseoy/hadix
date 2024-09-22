@@ -27,8 +27,12 @@ export class ApplicationBuilder {
     this.appConfig = new HadixApplicationConfig();
   }
 
-  loadConfig(jsonConfig: string): ApplicationBuilder {
-    this.appConfig.loadFromJSON(jsonConfig);
+  loadConfig(jsonConfig: string | HadixApplicationConfig): ApplicationBuilder {
+    if (typeof jsonConfig === 'string') {
+      this.appConfig.loadFromJSON(jsonConfig);
+    } else {
+      this.appConfig = jsonConfig;
+    }
     return this;
   }
 
