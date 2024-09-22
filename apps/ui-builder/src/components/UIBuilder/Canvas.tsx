@@ -12,7 +12,7 @@ export function Canvas({ rootElementRef }: CanvasProps) {
 
   return (
     <div
-      className="w-full h-full bg-gray-100 rounded-3xl transition-colors duration-300 relative overflow-hidden"
+      className="w-full h-full bg-gray-100 transition-colors duration-300 relative overflow-hidden"
       ref={dragConstraintsRef}
     >
       {/* 그리드 배경 */}
