@@ -110,26 +110,6 @@ export function UIBuilder() {
     appControllerRef.current = appController;
   }, [rootElementRef.current, configRef.current]);
 
-  useEffect(() => {
-    if (appControllerRef.current === null) return;
-    appControllerRef.current.addEventListener(
-      'submitButton',
-      'click',
-      (_event: EventDefinition) => {
-        console.log('Submit button clicked!');
-      },
-    );
-
-    setTimeout(() => {
-      if (appControllerRef.current === null) return;
-
-      appControllerRef.current.setState({
-        lastSubmission: { name: 'John Doe', email: 'john@example.com' },
-      });
-      appControllerRef.current.updateUI();
-    }, 5000);
-  }, [appControllerRef.current]);
-
   const exportConfig = () => {
     if (configRef.current === null) return;
     const blob = new Blob([configRef.current.toJSON()], {
@@ -151,7 +131,16 @@ export function UIBuilder() {
           <h2 className="text-sm text-gray-500">UI Builder</h2>
         </hgroup>
         <div className="flex items-center gap-2">
-          <button className="text-sm text-gray-500">Save</button>
+          {/* Github Link */}
+          <a
+            href="https://github.com/hseoy/hadix"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-gray-500"
+          >
+            Github
+          </a>
+          {/* Export */}
           <button className="text-sm text-gray-500" onClick={exportConfig}>
             Export
           </button>
@@ -161,9 +150,12 @@ export function UIBuilder() {
       <div className="w-full h-full flex flex-row">
         {/* SideBar */}
         <div className="w-64 h-full bg-white shadow-md">
-          {/* Component List */}
-          <div className="flex flex-col gap-2">
-            <ComponentTree componentTree={componentTree} />
+          <div className="flex flex-col gap-2 p-4">
+            {/* Component Tree */}
+            <h3 className="font-bold text-gray-500">Components</h3>
+            <div className="flex flex-col gap-2">
+              <ComponentTree componentTree={componentTree} />
+            </div>
           </div>
         </div>
 
