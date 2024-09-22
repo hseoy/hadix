@@ -4,11 +4,7 @@ import { useEffect, useRef } from 'react';
 import { run } from '../../core/example';
 import { CanvasPage } from './CanvasPage';
 
-interface CanvasProps {
-  canvasItems: Array<any>;
-}
-
-export function Canvas({ canvasItems }: CanvasProps) {
+export function Canvas() {
   const rootElementRef = useRef<HTMLDivElement | null>(null);
   const dragConstraintsRef = useRef<HTMLDivElement | null>(null);
   const isRunRef = useRef<boolean>(false);
