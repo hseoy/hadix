@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Canvas } from './Canvas';
 import { HadixApplicationConfig } from '@/core/application-config';
 import { ApplicationBuilder } from '@/core/application-builder';
@@ -11,6 +11,11 @@ import { LabelComponent } from '@/hadix-components/LabelComponent';
 import { EventDefinition } from '@/core/event-system/types';
 import { ApplicationController } from '@/core/application-controller';
 import { downloadBlob } from '@/utils/blob';
+import {
+  ComponentDefinition,
+  UIComponent,
+} from '@/core/component-system/types';
+import { ComponentTree } from './ComponentTree';
 
 const sampleConfig = {
   actions: [
@@ -77,6 +82,8 @@ const sampleConfig = {
 };
 
 export function UIBuilder() {
+  const [componentTree, setComponentTree] =
+    useState<ComponentDefinition | null>(null);
   const appControllerRef = useRef<ApplicationController | null>(null);
   const rootElementRef = useRef<HTMLDivElement | null>(null);
   const configRef = useRef<HadixApplicationConfig | null>(null);
@@ -131,9 +138,14 @@ export function UIBuilder() {
     downloadBlob(blob, `config-${Date.now()}.json`);
   };
 
+  useEffect(() => {
+    if (configRef.current === null) return;
+    setComponentTree(configRef.current.layout);
+  }, [configRef.current]);
+
   return (
     <div className="w-full h-full flex flex-col">
-      <header className="w-full h-16 bg-white shadow-md flex items-center justify-between px-4">
+      <header className="w-full h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 z-10">
         <hgroup className="flex flex-row gap-2 items-baseline">
           <h1 className="text-xl font-bold">Hadix</h1>
           <h2 className="text-sm text-gray-500">UI Builder</h2>
@@ -146,7 +158,18 @@ export function UIBuilder() {
         </div>
       </header>
 
-      <Canvas rootElementRef={rootElementRef}></Canvas>
+      <div className="w-full h-full flex flex-row">
+        {/* SideBar */}
+        <div className="w-64 h-full bg-white shadow-md">
+          {/* Component List */}
+          <div className="flex flex-col gap-2">
+            <ComponentTree componentTree={componentTree} />
+          </div>
+        </div>
+
+        {/* Canvas */}
+        <Canvas rootElementRef={rootElementRef}></Canvas>
+      </div>
     </div>
   );
 }
