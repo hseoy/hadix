@@ -1,4 +1,4 @@
-import { BaseAction, BaseActionParams } from '@/core/action-system/base-action';
+import { BaseAction } from '@/core/action-system/base-action';
 import { ActionCallback, ActionContext } from '@/core/action-system/types';
 
 export class CallbackAction extends BaseAction<'callback'> {
@@ -6,7 +6,7 @@ export class CallbackAction extends BaseAction<'callback'> {
     super(id, 'callback', undefined, callback);
   }
 
-  execute(context: ActionContext): void {
+  async executeAction(context: ActionContext) {
     this.callback?.(context);
   }
 }

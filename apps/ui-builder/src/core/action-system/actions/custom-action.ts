@@ -10,9 +10,12 @@ export class CustomAction extends BaseAction<'custom', CustomActionParams> {
     super(id, 'custom', params);
   }
 
-  execute(context: ActionContext): void {
-    if (this.params?.script) {
-      this.evaluateExpression(this.params.script, context);
+  async executeAction(
+    context: ActionContext,
+    resolvedParams: CustomActionParams,
+  ) {
+    if (resolvedParams?.script) {
+      this.evaluateExpression(resolvedParams.script, context);
     }
   }
 }

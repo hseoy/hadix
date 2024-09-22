@@ -8,10 +8,14 @@ import {
 } from '@/core/action-system/types';
 
 export type BaseActionParams = Record<string, ParamDefinition>;
+export type ResolvedBaseActionParams = Record<string, ParamValue>;
 
 export abstract class BaseAction<
   TypeT extends string,
   ParamsT extends BaseActionParams = Record<string, never>,
+  ResolvedParamsT extends ResolvedBaseActionParams = ParamsT extends ResolvedBaseActionParams
+    ? ParamsT
+    : Record<string, never>,
 > implements Action<ParamsT>
 {
   id: string;
@@ -32,12 +36,12 @@ export abstract class BaseAction<
   }
 
   protected async resolveParams(
-    params: Record<string, ParamDefinition>,
+    params: ParamsT | undefined,
     context: ActionContext,
-  ): Promise<Record<string, ParamValue>> {
+  ): Promise<ResolvedParamsT> {
     const resolvedParams: Record<string, ParamValue> = {};
 
-    const paramEntries = Object.entries(params);
+    const paramEntries = Object.entries(params || {});
     for (const [key, value] of paramEntries) {
       if (isDynamicParam(value)) {
         resolvedParams[key] = await this.evaluateExpression(
@@ -49,7 +53,7 @@ export abstract class BaseAction<
       }
     }
 
-    return resolvedParams;
+    return resolvedParams as ResolvedParamsT;
   }
 
   protected evaluateExpression(expression: string, context: ActionContext) {
@@ -60,5 +64,13 @@ export abstract class BaseAction<
     );
   }
 
-  abstract execute(context: ActionContext): void;
+  protected abstract executeAction(
+    context: ActionContext,
+    resolvedParams: ResolvedParamsT,
+  ): Promise<void>;
+
+  async execute(context: ActionContext): Promise<void> {
+    const resolvedParams = await this.resolveParams(this.params, context);
+    await this.executeAction(context, resolvedParams);
+  }
 }

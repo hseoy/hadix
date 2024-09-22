@@ -6,7 +6,7 @@ export class EmptyAction extends BaseAction<'empty'> {
     super(id, 'empty', {});
   }
 
-  execute(_context: ActionContext): void {
+  async executeAction(_context: ActionContext) {
     // Do nothing
   }
 }

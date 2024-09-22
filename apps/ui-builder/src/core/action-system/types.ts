@@ -29,7 +29,7 @@ export interface Action<
     ParamDefinition
   >,
 > extends ActionDefinition<ParamsT> {
-  execute(context: ActionContext): void;
+  execute(context: ActionContext): Promise<void>;
 }
 
 export interface ActionContext {
