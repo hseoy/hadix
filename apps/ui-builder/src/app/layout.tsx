@@ -4,6 +4,10 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Hadix - UI Builder',
   description: 'UI Builder for Hadix',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
