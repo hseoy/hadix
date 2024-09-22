@@ -1,6 +1,6 @@
 import React from 'react';
 import { BaseUIComponent } from '@/core/component-system/base-ui-component';
-import { EventSystem } from '../event-system';
+import { EventSystem } from '../core/event-system';
 
 export class ContainerComponent extends BaseUIComponent {
   constructor(id: string, eventSystem: EventSystem) {

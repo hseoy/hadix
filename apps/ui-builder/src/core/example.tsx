@@ -1,8 +1,8 @@
 import { ApplicationBuilder } from './application-builder';
-import { ButtonComponent } from './components/ButtonComponent';
-import { ContainerComponent } from './components/ContainerComponent';
-import { InputComponent } from './components/InputComponent';
-import { LabelComponent } from './components/LabelComponent';
+import { ButtonComponent } from '../hadix-components/ButtonComponent';
+import { ContainerComponent } from '../hadix-components/ContainerComponent';
+import { InputComponent } from '../hadix-components/InputComponent';
+import { LabelComponent } from '../hadix-components/LabelComponent';
 import { EventDefinition } from './event-system/types';
 
 export const run = ($root: HTMLElement) => {

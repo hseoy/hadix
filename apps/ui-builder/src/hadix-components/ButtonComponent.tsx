@@ -1,6 +1,6 @@
 import React from 'react';
-import { BaseUIComponent } from '../component-system/base-ui-component';
-import { EventSystem } from '../event-system';
+import { BaseUIComponent } from '../core/component-system/base-ui-component';
+import { EventSystem } from '../core/event-system';
 
 export class ButtonComponent extends BaseUIComponent {
   private onClick?: () => void;
