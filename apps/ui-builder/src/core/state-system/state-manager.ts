@@ -1,14 +1,14 @@
-type StateListener = (state: Record<string, any>) => void;
+type StateListener = (state: Record<string, unknown>) => void;
 
 export class StateManager {
-  private state: Record<string, any> = {};
+  private state: Record<string, unknown> = {};
   private listeners: Set<StateListener> = new Set();
 
-  getState(): Record<string, any> {
+  getState(): Record<string, unknown> {
     return { ...this.state };
   }
 
-  setState(updates: Record<string, any>): void {
+  setState(updates: Record<string, unknown>): void {
     this.state = { ...this.state, ...updates };
     this.notifyListeners();
   }

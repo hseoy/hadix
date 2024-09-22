@@ -1,12 +1,11 @@
-import ReactDOM from 'react-dom';
 import { ActionRegistry } from './action-system/action-registry';
 import { ComponentRegistry } from './component-system/component-registry';
 import { UIComponent } from './component-system/types';
 import { EventSystem } from './event-system';
 import { StateManager } from './state-system/state-manager';
-import { BaseUIComponent } from './component-system/base-ui-component';
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
+import { EventDefinition } from './event-system/types';
 
 export class ApplicationController {
   private componentsMap: Record<string, UIComponent>;
@@ -24,11 +23,11 @@ export class ApplicationController {
     this.initializeEventListeners();
   }
 
-  private initializeComponents(component: BaseUIComponent): void {
+  private initializeComponents(component: UIComponent): void {
     component.setStateChangeCallback(() => this.rerender());
     // 자식 컴포넌트들에 대해서도 재귀적으로 호출
     if ('getChildren' in component) {
-      (component as any).getChildren().forEach((child: BaseUIComponent) => {
+      component.getChildren().forEach((child: UIComponent) => {
         this.initializeComponents(child);
       });
     }
@@ -77,7 +76,7 @@ export class ApplicationController {
     return this.componentsMap[id];
   }
 
-  executeAction(actionId: string, event: any): void {
+  executeAction(actionId: string, event: EventDefinition): void {
     const context = {
       $event: event,
       $state: this.stateManager,
@@ -86,11 +85,11 @@ export class ApplicationController {
     this.actionRegistry.executeAction(actionId, context);
   }
 
-  setState(updates: Record<string, any>): void {
+  setState(updates: Record<string, unknown>): void {
     this.stateManager.setState(updates);
   }
 
-  getState(): Record<string, any> {
+  getState(): Record<string, unknown> {
     return this.stateManager.getState();
   }
 
@@ -125,7 +124,7 @@ export class ApplicationController {
   addEventListener(
     componentId: string,
     eventName: string,
-    handler: (event: any) => void,
+    handler: (event: EventDefinition) => void,
   ): void {
     const component = this.getComponent(componentId);
     if (component) {
@@ -138,7 +137,7 @@ export class ApplicationController {
   removeEventListener(
     componentId: string,
     eventName: string,
-    handler: (event: any) => void,
+    handler: (event: EventDefinition) => void,
   ): void {
     const component = this.getComponent(componentId);
     if (component) {

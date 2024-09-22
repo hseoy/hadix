@@ -3,6 +3,7 @@ import { ButtonComponent } from './components/ButtonComponent';
 import { ContainerComponent } from './components/ContainerComponent';
 import { InputComponent } from './components/InputComponent';
 import { LabelComponent } from './components/LabelComponent';
+import { EventDefinition } from './event-system/types';
 
 export const run = ($root: HTMLElement) => {
   // 1. ApplicationBuilder 인스턴스 생성
@@ -17,6 +18,15 @@ export const run = ($root: HTMLElement) => {
   // 3. JSON 설정 로드
   const jsonConfig = `
 {
+  "actions": [
+    {
+      "id": "submitForm",
+      "type": "custom",
+      "params": {
+        "script": "console.log($components.nameInput.getState().value)"
+      }
+    }
+  ],
   "layout": {
     "type": "Container",
     "id": "root",
@@ -24,28 +34,28 @@ export const run = ($root: HTMLElement) => {
       {
         "type": "Label",
         "id": "titleLabel",
-        "properties": {
+        "props": {
           "text": "User Registration Form"
         }
       },
       {
         "type": "Input",
         "id": "nameInput",
-        "properties": {
+        "props": {
           "placeholder": "Enter your name"
         }
       },
       {
         "type": "Input",
         "id": "emailInput",
-        "properties": {
+        "props": {
           "placeholder": "Enter your email"
         }
       },
       {
         "type": "Button",
         "id": "submitButton",
-        "properties": {
+        "props": {
           "label": "Submit"
         },
         "events": [
@@ -62,40 +72,27 @@ export const run = ($root: HTMLElement) => {
 
   builder.loadConfig(jsonConfig);
 
-  // 4. 액션 정의
-  builder.registerAction('submitForm', context => {
-    const nameInput = context.$components['nameInput'] as InputComponent;
-    const emailInput = context.$components['emailInput'] as InputComponent;
-
-    const name = nameInput.getState().value;
-    const email = emailInput.getState().value;
-
-    console.log(context.$state.getState().lastSubmission);
-    console.log(`Submitting form: Name - ${name}, Email - ${email}`);
-
-    // 여기에서 API 호출이나 상태 업데이트 등을 수행할 수 있습니다.
-    context.$state.setState({
-      lastSubmission: { name, email },
-    });
-  });
-
-  // 5. 초기 상태 설정
+  // 4. 초기 상태 설정
   builder.setInitialState({
     lastSubmission: null,
   });
 
-  // 6. ApplicationController 빌드
+  // 5. ApplicationController 빌드
   const appController = builder.build();
 
-  // 7. 애플리케이션 초기화 및 실행
+  // 6. 애플리케이션 초기화 및 실행
   appController.initialize();
 
-  // 8. 이벤트 리스너 예시 (옵션)
-  appController.addEventListener('submitButton', 'click', (_event: any) => {
-    console.log('Submit button clicked!');
-  });
+  // 7. 이벤트 리스너 예시 (옵션)
+  appController.addEventListener(
+    'submitButton',
+    'click',
+    (_event: EventDefinition) => {
+      console.log('Submit button clicked!');
+    },
+  );
 
-  // 9. 상태 변경 예시 (옵션)
+  // 8. 상태 변경 예시 (옵션)
   setTimeout(() => {
     appController.setState({
       lastSubmission: { name: 'John Doe', email: 'john@example.com' },

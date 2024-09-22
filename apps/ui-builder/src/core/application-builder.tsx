@@ -2,27 +2,33 @@ import { ActionRegistry } from '@/core/action-system/action-registry';
 import { ActionCallback, ActionDefinition } from '@/core/action-system/types';
 import { EventSystem } from '@/core/event-system';
 import { ComponentRegistry } from '@/core/component-system/component-registry';
-import { UIComponent } from '@/core/component-system/types';
+import {
+  ComponentDefinition,
+  EventBindingDefinition,
+  UIComponent,
+} from '@/core/component-system/types';
 import { StateManager } from '@/core/state-system/state-manager';
 import { ComponentConstructor } from '@/core/component-system/types';
 import { ApplicationController } from './application-controller';
+import { HadixApplicationConfig } from './application-config';
 
 export class ApplicationBuilder {
   private eventSystem: EventSystem;
   private actionRegistry: ActionRegistry;
   private stateManager: StateManager;
   private componentRegistry: ComponentRegistry;
-  private appConfig: any;
+  private appConfig: HadixApplicationConfig;
 
   constructor(private rootElement: HTMLElement) {
     this.eventSystem = new EventSystem();
     this.actionRegistry = new ActionRegistry();
     this.stateManager = new StateManager();
     this.componentRegistry = new ComponentRegistry();
+    this.appConfig = new HadixApplicationConfig();
   }
 
   loadConfig(jsonConfig: string): ApplicationBuilder {
-    this.appConfig = JSON.parse(jsonConfig);
+    this.appConfig.loadFromJSON(jsonConfig);
     return this;
   }
 
@@ -46,18 +52,19 @@ export class ApplicationBuilder {
     return this;
   }
 
-  setInitialState(state: Record<string, any>): ApplicationBuilder {
+  setInitialState(state: Record<string, unknown>): ApplicationBuilder {
     this.stateManager.setState(state);
     return this;
   }
 
   build(): ApplicationController {
-    if (!this.appConfig) {
+    if (!this.appConfig.layout) {
       throw new Error(
         'Application configuration not loaded. Call loadConfig() first.',
       );
     }
 
+    this.registerActions(this.appConfig.actions || []);
     const rootComponent = this.buildComponentTree(this.appConfig.layout);
 
     return new ApplicationController(
@@ -70,7 +77,10 @@ export class ApplicationBuilder {
     );
   }
 
-  private buildComponentTree(config: any, parent?: UIComponent): UIComponent {
+  private buildComponentTree(
+    config: ComponentDefinition,
+    parent?: UIComponent,
+  ): UIComponent {
     const componentClass = this.componentRegistry.get(config.type);
     if (!componentClass) {
       throw new Error(`Unknown component type: ${config.type}`);
@@ -79,14 +89,14 @@ export class ApplicationBuilder {
     const component = new componentClass(config.id, this.eventSystem);
 
     // Set properties
-    Object.assign(component, config.properties);
+    Object.assign(component, config.props);
 
     if (parent) {
       parent.addChild(component);
     }
 
     // Set up event listeners
-    config.events?.forEach((eventConfig: any) => {
+    config.events?.forEach((eventConfig: EventBindingDefinition) => {
       component.addEventListener(eventConfig.eventName, event => {
         this.actionRegistry.executeAction(eventConfig.actionId, {
           $event: event,
@@ -97,7 +107,7 @@ export class ApplicationBuilder {
     });
 
     // Recursively build children
-    config.children?.forEach((childConfig: any) => {
+    config.children?.forEach((childConfig: ComponentDefinition) => {
       this.buildComponentTree(childConfig, component);
     });
 
