@@ -9,21 +9,11 @@ export class LabelComponent extends BaseUIComponent {
     super(id, 'Label', eventSystem);
   }
 
-  setText(text: string): void {
-    this.text = text;
-  }
-
   render(): React.ReactElement {
     return (
       <label id={this.id} key={this.key}>
         {this.text}
       </label>
     );
-  }
-
-  update(state: any): void {
-    if (state[this.id]) {
-      this.setText(state[this.id]);
-    }
   }
 }
