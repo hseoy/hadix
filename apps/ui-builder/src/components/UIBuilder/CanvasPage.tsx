@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 
 interface CanvasPageProps {
   children: React.ReactNode;
+  title?: string;
   dragConstraints: React.RefObject<HTMLDivElement>;
   width: number;
   height: number;
@@ -9,6 +10,7 @@ interface CanvasPageProps {
 
 export function CanvasPage({
   children,
+  title = 'New Page',
   dragConstraints,
   width,
   height,
@@ -18,14 +20,14 @@ export function CanvasPage({
       drag
       dragMomentum={false}
       dragConstraints={dragConstraints}
-      className="bg-white rounded-xl"
+      className="relative"
       style={{
         width: width,
         height: height,
       }}
-      whileDrag={{ scale: 1.01, boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)' }}
     >
-      {children}
+      <span className="text-sm text-gray-500">{title}</span>
+      <div className="w-full h-full bg-white rounded-xl">{children}</div>
     </motion.div>
   );
 }
