@@ -12,17 +12,19 @@ export class EventSystem {
 
   addEventListener(
     component: UIComponent,
-    type: string,
+    eventType: string,
     listener: EventListener,
   ): void {
+    const componentListeners = this.listeners.get(component) || new Map();
     if (!this.listeners.has(component)) {
-      this.listeners.set(component, new Map());
+      this.listeners.set(component, componentListeners);
     }
-    const componentListeners = this.listeners.get(component)!;
-    if (!componentListeners.has(type)) {
-      componentListeners.set(type, new Set());
+    const targetEventTypeListeners =
+      componentListeners.get(eventType) || new Set();
+    if (!componentListeners.has(eventType)) {
+      componentListeners.set(eventType, targetEventTypeListeners);
     }
-    componentListeners.get(type)!.add(listener);
+    targetEventTypeListeners.add(listener);
   }
 
   removeEventListener(
@@ -104,7 +106,9 @@ export class EventSystem {
         const listeners = Array.from(typeListeners);
         for (const listener of listeners) {
           if (event.propagationStopped) break;
-          listener(event);
+          // Event Copy
+          const copiedEvent = Object.assign({}, event);
+          listener(copiedEvent);
         }
       }
     }

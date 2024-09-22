@@ -16,60 +16,69 @@ export const run = ($root: HTMLElement) => {
   builder.registerComponent('Label', LabelComponent);
 
   // 3. JSON 설정 로드
-  const jsonConfig = `
-{
-  "actions": [
-    {
-      "id": "submitForm",
-      "type": "custom",
-      "params": {
-        "script": "console.log($components.nameInput.getState().value)"
-      }
-    }
-  ],
-  "layout": {
-    "type": "Container",
-    "id": "root",
-    "children": [
+  const jsonConfig = JSON.stringify({
+    actions: [
       {
-        "type": "Label",
-        "id": "titleLabel",
-        "props": {
-          "text": "User Registration Form"
-        }
-      },
-      {
-        "type": "Input",
-        "id": "nameInput",
-        "props": {
-          "placeholder": "Enter your name"
-        }
-      },
-      {
-        "type": "Input",
-        "id": "emailInput",
-        "props": {
-          "placeholder": "Enter your email"
-        }
-      },
-      {
-        "type": "Button",
-        "id": "submitButton",
-        "props": {
-          "label": "Submit"
+        id: 'submitForm',
+        type: 'custom',
+        params: {
+          script: 'console.log($components.nameInput.getState().value)',
         },
-        "events": [
-          {
-            "eventName": "click",
-            "actionId": "submitForm"
-          }
-        ]
-      }
-    ]
-  }
-}
-`;
-
+      },
+      {
+        id: 'logEvent',
+        type: 'custom',
+        params: {
+          script: 'console.log($event.currentTarget.type, $event)',
+        },
+      },
+    ],
+    layout: {
+      type: 'Container',
+      id: 'root',
+      events: [{ eventName: 'click', actionId: 'logEvent' }],
+      children: [
+        {
+          type: 'Label',
+          id: 'titleLabel',
+          props: {
+            text: 'User Registration Form',
+          },
+        },
+        {
+          type: 'Input',
+          id: 'nameInput',
+          props: {
+            placeholder: 'Enter your name',
+          },
+        },
+        {
+          type: 'Input',
+          id: 'emailInput',
+          props: {
+            placeholder: 'Enter your email',
+          },
+        },
+        {
+          type: 'Button',
+          id: 'submitButton',
+          props: {
+            label: 'Submit',
+          },
+          events: [
+            {
+              eventName: 'click',
+              actionId: 'submitForm',
+            },
+            {
+              eventName: 'click',
+              actionId: 'logEvent',
+            },
+          ],
+        },
+      ],
+    },
+  });
   builder.loadConfig(jsonConfig);
 
   // 4. 초기 상태 설정
