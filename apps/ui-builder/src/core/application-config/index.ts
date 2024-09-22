@@ -19,4 +19,12 @@ export class HadixApplicationConfig {
     this.actions = parsed.actions;
     this.layout = parsed.layout;
   }
+
+  toJSON() {
+    return JSON.stringify(
+      { actions: this.actions, layout: this.layout },
+      null,
+      2,
+    );
+  }
 }

@@ -10,6 +10,7 @@ import { InputComponent } from '@/hadix-components/InputComponent';
 import { LabelComponent } from '@/hadix-components/LabelComponent';
 import { EventDefinition } from '@/core/event-system/types';
 import { ApplicationController } from '@/core/application-controller';
+import { downloadBlob } from '@/utils/blob';
 
 const sampleConfig = {
   actions: [
@@ -124,21 +125,10 @@ export function UIBuilder() {
 
   const exportConfig = () => {
     if (configRef.current === null) return;
-
-    // Download the config as a JSON file
-    const { actions, layout } = configRef.current;
-    const blob = new Blob([JSON.stringify({ actions, layout }, null, 2)], {
+    const blob = new Blob([configRef.current.toJSON()], {
       type: 'application/json',
     });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.style.display = 'none';
-    a.href = url;
-    a.download = 'config.json';
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
+    downloadBlob(blob, `config-${Date.now()}.json`);
   };
 
   return (
