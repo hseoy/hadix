@@ -8,16 +8,13 @@ import { ButtonComponent } from '@/hadix-components/ButtonComponent';
 import { ContainerComponent } from '@/hadix-components/ContainerComponent';
 import { InputComponent } from '@/hadix-components/InputComponent';
 import { LabelComponent } from '@/hadix-components/LabelComponent';
-import { EventDefinition } from '@/core/event-system/types';
 import { ApplicationController } from '@/core/application-controller';
 import { downloadBlob } from '@/utils/blob';
-import {
-  ComponentDefinition,
-  UIComponent,
-} from '@/core/component-system/types';
+import { ComponentDefinition } from '@/core/component-system/types';
 import { ComponentTree } from './ComponentTree';
 
 const sampleConfig = {
+  version: '0.0.1',
   actions: [
     {
       id: 'submitForm',
@@ -89,6 +86,7 @@ export function UIBuilder() {
   const configRef = useRef<HadixApplicationConfig | null>(null);
   if (configRef.current === null) {
     configRef.current = new HadixApplicationConfig(
+      sampleConfig.version,
       sampleConfig.actions,
       sampleConfig.layout,
     );
