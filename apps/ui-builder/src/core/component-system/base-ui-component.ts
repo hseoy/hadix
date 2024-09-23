@@ -5,11 +5,52 @@ import {
   EventName,
 } from '@/core/event-system/types';
 import { UIComponent } from '@/core/component-system/types';
+import { nanoid } from 'nanoid';
 
 export abstract class BaseUIComponent implements UIComponent {
+  _id: string;
   id: string;
   type: string;
   key: string;
+
+  // CSS Properties
+  margin?: React.CSSProperties['margin'];
+  padding?: React.CSSProperties['padding'];
+  border?: React.CSSProperties['border'];
+  borderRadius?: React.CSSProperties['borderRadius'];
+  backgroundColor?: React.CSSProperties['backgroundColor'];
+  color?: React.CSSProperties['color'];
+  fontSize?: React.CSSProperties['fontSize'];
+  fontWeight?: React.CSSProperties['fontWeight'];
+  textAlign?: React.CSSProperties['textAlign'];
+  width?: React.CSSProperties['width'];
+  height?: React.CSSProperties['height'];
+  display?: React.CSSProperties['display'];
+  position?: React.CSSProperties['position'];
+  top?: React.CSSProperties['top'];
+  left?: React.CSSProperties['left'];
+  right?: React.CSSProperties['right'];
+  bottom?: React.CSSProperties['bottom'];
+  zIndex?: React.CSSProperties['zIndex'];
+  opacity?: React.CSSProperties['opacity'];
+  overflow?: React.CSSProperties['overflow'];
+  cursor?: React.CSSProperties['cursor'];
+  pointerEvents?: React.CSSProperties['pointerEvents'];
+  visibility?: React.CSSProperties['visibility'];
+  flex?: React.CSSProperties['flex'];
+  flexDirection?: React.CSSProperties['flexDirection'];
+  flexWrap?: React.CSSProperties['flexWrap'];
+  justifyContent?: React.CSSProperties['justifyContent'];
+  alignItems?: React.CSSProperties['alignItems'];
+  alignContent?: React.CSSProperties['alignContent'];
+  order?: React.CSSProperties['order'];
+  flexGrow?: React.CSSProperties['flexGrow'];
+  flexShrink?: React.CSSProperties['flexShrink'];
+  flexBasis?: React.CSSProperties['flexBasis'];
+  alignSelf?: React.CSSProperties['alignSelf'];
+  transform?: React.CSSProperties['transform'];
+  transition?: React.CSSProperties['transition'];
+  animation?: React.CSSProperties['animation'];
 
   protected state: Record<string, unknown> = {};
   private stateChangeCallback?: () => void;
@@ -24,6 +65,7 @@ export abstract class BaseUIComponent implements UIComponent {
     eventSystem: EventSystem,
     key?: string,
   ) {
+    this._id = nanoid();
     this.id = id;
     this.type = type;
     this.eventSystem = eventSystem;
@@ -121,6 +163,48 @@ export abstract class BaseUIComponent implements UIComponent {
 
   setStateChangeCallback(callback: () => void): void {
     this.stateChangeCallback = callback;
+  }
+
+  protected getCSSProperties(): React.CSSProperties {
+    return {
+      margin: this.margin,
+      padding: this.padding,
+      border: this.border,
+      borderRadius: this.borderRadius,
+      backgroundColor: this.backgroundColor,
+      color: this.color,
+      fontSize: this.fontSize,
+      fontWeight: this.fontWeight,
+      textAlign: this.textAlign,
+      width: this.width,
+      height: this.height,
+      display: this.display,
+      position: this.position,
+      top: this.top,
+      left: this.left,
+      right: this.right,
+      bottom: this.bottom,
+      zIndex: this.zIndex,
+      opacity: this.opacity,
+      overflow: this.overflow,
+      cursor: this.cursor,
+      pointerEvents: this.pointerEvents,
+      visibility: this.visibility,
+      flex: this.flex,
+      flexDirection: this.flexDirection,
+      flexWrap: this.flexWrap,
+      justifyContent: this.justifyContent,
+      alignItems: this.alignItems,
+      alignContent: this.alignContent,
+      order: this.order,
+      flexGrow: this.flexGrow,
+      flexShrink: this.flexShrink,
+      flexBasis: this.flexBasis,
+      alignSelf: this.alignSelf,
+      transform: this.transform,
+      transition: this.transition,
+      animation: this.animation,
+    };
   }
 
   abstract render(): JSX.Element;

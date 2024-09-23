@@ -4,22 +4,23 @@ import { EventSystem } from '@/core/event-system';
 
 export class InputComponent extends BaseUIComponent {
   placeholder: string;
+  type: 'text' | 'number' | 'email' | 'password';
 
   constructor(id: string, eventSystem: EventSystem) {
     super(id, 'Input', eventSystem);
     this.placeholder = '';
+    this.type = 'text';
   }
 
   render(): React.ReactElement {
     return (
       <input
-        id={this.id}
+        id={this._id}
         key={this.key}
-        type="text"
+        type={this.type}
         placeholder={this.placeholder}
-        onChange={e => {
-          this.setState({ ...this.state, value: e.target.value });
-        }}
+        onChange={e => this.setState({ ...this.state, value: e.target.value })}
+        style={{ ...this.getCSSProperties() }}
       />
     );
   }

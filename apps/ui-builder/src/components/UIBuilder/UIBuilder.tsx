@@ -4,75 +4,104 @@ import { useEffect, useRef, useState } from 'react';
 import { Canvas } from './Canvas';
 import { HadixApplicationConfig } from '@/core/application-config';
 import { ApplicationBuilder } from '@/core/application-builder';
-import { ButtonComponent } from '@/hadix-components/sample/ButtonComponent';
-import { ContainerComponent } from '@/hadix-components/sample/ContainerComponent';
-import { InputComponent } from '@/hadix-components/sample/InputComponent';
-import { LabelComponent } from '@/hadix-components/sample/LabelComponent';
 import { ApplicationController } from '@/core/application-controller';
 import { downloadBlob } from '@/utils/blob';
 import { ComponentDefinition } from '@/core/component-system/types';
 import { ComponentTree } from './ComponentTree';
+import { ButtonComponent } from '@/hadix-components/ButtonComponent';
+import { InputComponent } from '@/hadix-components/InputComponent';
+import { ContainerComponent } from '@/hadix-components/ContainerComponent';
+import { TextComponent } from '@/hadix-components/TextComponent';
+import { ImageComponent } from '@/hadix-components/ImageComponent';
 
 const sampleConfig = {
   version: '0.0.1',
-  actions: [
-    {
-      id: 'submitForm',
-      type: 'custom',
-      params: {
-        script: 'console.log($components.nameInput.getState().value)',
-      },
-    },
-    {
-      id: 'logEvent',
-      type: 'custom',
-      params: {
-        script: 'console.log($event.currentTarget.type, $event)',
-      },
-    },
-  ],
+  actions: [],
   layout: {
     type: 'Container',
     id: 'root',
-    events: [{ eventName: 'click', actionId: 'logEvent' }],
+    props: {
+      layout: 'vertical',
+    },
     children: [
       {
-        type: 'Label',
-        id: 'titleLabel',
+        type: 'Text',
+        id: 'title',
         props: {
-          text: 'User Registration Form',
+          content: 'Hello! This is Hadix.',
+          fontSize: '20px',
+          fontWeight: 'bold',
+          color: 'blue',
+          textAlign: 'center',
+          padding: '10px',
         },
       },
       {
-        type: 'Input',
-        id: 'nameInput',
+        type: 'Text',
+        id: 'description',
         props: {
-          placeholder: 'Enter your name',
+          content:
+            'Hadix is an open-source Low Code Application Builder aimed at designing and developing production-level applications.',
+          fontSize: '16px',
+          fontWeight: 'normal',
+          color: 'gray',
+          textAlign: 'center',
+          padding: '10px',
         },
       },
       {
-        type: 'Input',
-        id: 'emailInput',
+        type: 'Container',
+        id: 'container',
         props: {
-          placeholder: 'Enter your email',
+          layout: 'horizontal',
         },
+        children: [
+          {
+            type: 'Image',
+            id: 'image',
+            props: {
+              src: 'https://picsum.photos/200/300',
+              alt: 'Random Image',
+              width: 200,
+              height: 200,
+              padding: '10px',
+              margin: '10px',
+            },
+          },
+          {
+            type: 'Image',
+            id: 'image',
+            props: {
+              src: 'https://picsum.photos/200/300',
+              alt: 'Random Image',
+              width: 200,
+              height: 200,
+              padding: '10px',
+              margin: '10px',
+            },
+          },
+          {
+            type: 'Image',
+            id: 'image',
+            props: {
+              src: 'https://picsum.photos/200/300',
+              alt: 'Random Image',
+              width: 200,
+              height: 200,
+              padding: '10px',
+              margin: '10px',
+            },
+          },
+        ],
       },
       {
         type: 'Button',
-        id: 'submitButton',
+        id: 'button',
         props: {
-          label: 'Submit',
+          label: 'Click me',
+          padding: '10px',
+          margin: '10px',
         },
-        events: [
-          {
-            eventName: 'click',
-            actionId: 'submitForm',
-          },
-          {
-            eventName: 'click',
-            actionId: 'logEvent',
-          },
-        ],
       },
     ],
   },
@@ -99,8 +128,8 @@ export function UIBuilder() {
     builder.registerComponent('Button', ButtonComponent);
     builder.registerComponent('Input', InputComponent);
     builder.registerComponent('Container', ContainerComponent);
-    builder.registerComponent('Label', LabelComponent);
-
+    builder.registerComponent('Text', TextComponent);
+    builder.registerComponent('Image', ImageComponent);
     builder.loadConfig(configRef.current);
 
     const appController = builder.build();

@@ -3,6 +3,7 @@ import { DefaultActionDefinitionSchema } from '../action-system/validator';
 import { ComponentDefinitionSchema } from '../component-system/validator';
 
 const HadixApplicationConfigSchema = z.object({
+  version: z.string(),
   actions: z.array(DefaultActionDefinitionSchema),
   layout: ComponentDefinitionSchema,
 });
