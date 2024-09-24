@@ -1,4 +1,4 @@
-import { UIComponent } from '@/core/component-system/types';
+import { UIComponent } from '@/_deprecated/core/component-system/types';
 
 export interface EventDefinition {
   type: string;

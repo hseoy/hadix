@@ -1,5 +1,5 @@
-import { BaseUIComponent } from '@/core/component-system/base-ui-component';
-import { EventSystem } from '@/core/event-system';
+import { BaseUIComponent } from '@/_deprecated/core/component-system/base-ui-component';
+import { EventSystem } from '@/_deprecated/core/event-system';
 
 export class TextComponent extends BaseUIComponent {
   content: string;

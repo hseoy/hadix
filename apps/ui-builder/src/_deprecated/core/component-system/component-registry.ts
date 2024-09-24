@@ -1,8 +1,8 @@
-import { EventSystem } from '@/core/event-system';
+import { EventSystem } from '@/_deprecated/core/event-system';
 import {
   ComponentConstructor,
   UIComponent,
-} from '@/core/component-system/types';
+} from '@/_deprecated/core/component-system/types';
 
 export class ComponentRegistry {
   private components: Map<string, ComponentConstructor> = new Map();

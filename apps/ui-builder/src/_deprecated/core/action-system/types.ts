@@ -1,5 +1,5 @@
-import { EventDefinition } from '@/core/event-system/types';
-import { UIComponent } from '@/core/component-system/types';
+import { EventDefinition } from '@/_deprecated/core/event-system/types';
+import { UIComponent } from '@/_deprecated/core/component-system/types';
 import { StateManager } from '../state-system/state-manager';
 
 export type ParamValue = string | number | boolean | object | null;

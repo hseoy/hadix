@@ -1,10 +1,10 @@
-import { EventSystem } from '@/core/event-system';
+import { EventSystem } from '@/_deprecated/core/event-system';
 import {
   EventDefinition,
   EventListener,
   EventName,
-} from '@/core/event-system/types';
-import { UIComponent } from '@/core/component-system/types';
+} from '@/_deprecated/core/event-system/types';
+import { UIComponent } from '@/_deprecated/core/component-system/types';
 import { nanoid } from 'nanoid';
 
 export abstract class BaseUIComponent implements UIComponent {

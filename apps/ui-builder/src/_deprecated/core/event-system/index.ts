@@ -2,8 +2,8 @@ import {
   EventDefinition,
   EventName,
   EventListener,
-} from '@/core/event-system/types';
-import { UIComponent } from '@/core/component-system/types';
+} from '@/_deprecated/core/event-system/types';
+import { UIComponent } from '@/_deprecated/core/component-system/types';
 
 // EventSystem.ts
 export class EventSystem {

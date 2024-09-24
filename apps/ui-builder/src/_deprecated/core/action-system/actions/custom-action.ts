@@ -1,5 +1,8 @@
-import { BaseAction, BaseActionParams } from '@/core/action-system/base-action';
-import { ActionContext } from '@/core/action-system/types';
+import {
+  BaseAction,
+  BaseActionParams,
+} from '@/_deprecated/core/action-system/base-action';
+import { ActionContext } from '@/_deprecated/core/action-system/types';
 
 export interface CustomActionParams extends BaseActionParams {
   script: string;

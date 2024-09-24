@@ -1,14 +1,17 @@
-import { ActionRegistry } from '@/core/action-system/action-registry';
-import { ActionCallback, ActionDefinition } from '@/core/action-system/types';
-import { EventSystem } from '@/core/event-system';
-import { ComponentRegistry } from '@/core/component-system/component-registry';
+import { ActionRegistry } from '@/_deprecated/core/action-system/action-registry';
+import {
+  ActionCallback,
+  ActionDefinition,
+} from '@/_deprecated/core/action-system/types';
+import { EventSystem } from '@/_deprecated/core/event-system';
+import { ComponentRegistry } from '@/_deprecated/core/component-system/component-registry';
 import {
   ComponentDefinition,
   EventBindingDefinition,
   UIComponent,
-} from '@/core/component-system/types';
-import { StateManager } from '@/core/state-system/state-manager';
-import { ComponentConstructor } from '@/core/component-system/types';
+} from '@/_deprecated/core/component-system/types';
+import { StateManager } from '@/_deprecated/core/state-system/state-manager';
+import { ComponentConstructor } from '@/_deprecated/core/component-system/types';
 import { ApplicationController } from './application-controller';
 import { HadixApplicationConfig } from './application-config';
 

@@ -1,4 +1,4 @@
-import { ComponentDefinition } from '@/core/component-system/types';
+import { ComponentDefinition } from '@/_deprecated/core/component-system/types';
 
 interface ComponentTreeProps {
   componentTree: ComponentDefinition | null;

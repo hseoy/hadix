@@ -1,5 +1,5 @@
-import { BaseAction } from '@/core/action-system/base-action';
-import { ActionContext } from '@/core/action-system/types';
+import { BaseAction } from '@/_deprecated/core/action-system/base-action';
+import { ActionContext } from '@/_deprecated/core/action-system/types';
 
 export class EmptyAction extends BaseAction<'empty'> {
   constructor(id: string) {

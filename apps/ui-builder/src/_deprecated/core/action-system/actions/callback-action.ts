@@ -1,5 +1,8 @@
-import { BaseAction } from '@/core/action-system/base-action';
-import { ActionCallback, ActionContext } from '@/core/action-system/types';
+import { BaseAction } from '@/_deprecated/core/action-system/base-action';
+import {
+  ActionCallback,
+  ActionContext,
+} from '@/_deprecated/core/action-system/types';
 
 export class CallbackAction extends BaseAction<'callback'> {
   constructor(id: string, callback?: ActionCallback) {

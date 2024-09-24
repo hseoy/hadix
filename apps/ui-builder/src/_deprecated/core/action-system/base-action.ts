@@ -1,11 +1,11 @@
-import { isDynamicParam } from '@/core/action-system/type-guards';
+import { isDynamicParam } from '@/_deprecated/core/action-system/type-guards';
 import {
   Action,
   ActionCallback,
   ActionContext,
   ParamDefinition,
   ParamValue,
-} from '@/core/action-system/types';
+} from '@/_deprecated/core/action-system/types';
 
 export type BaseActionParams = Record<string, ParamDefinition>;
 export type ResolvedBaseActionParams = Record<string, ParamValue>;

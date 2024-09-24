@@ -2,8 +2,8 @@ import {
   EventDefinition,
   EventListener,
   EventName,
-} from '@/core/event-system/types';
-import { EventSystem } from '@/core/event-system';
+} from '@/_deprecated/core/event-system/types';
+import { EventSystem } from '@/_deprecated/core/event-system';
 
 export interface EventBindingDefinition {
   eventName: string;

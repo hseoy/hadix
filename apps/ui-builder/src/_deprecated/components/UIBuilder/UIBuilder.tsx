@@ -2,17 +2,17 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Canvas } from './Canvas';
-import { HadixApplicationConfig } from '@/core/application-config';
-import { ApplicationBuilder } from '@/core/application-builder';
-import { ApplicationController } from '@/core/application-controller';
+import { HadixApplicationConfig } from '@/_deprecated/core/application-config';
+import { ApplicationBuilder } from '@/_deprecated/core/application-builder';
+import { ApplicationController } from '@/_deprecated/core/application-controller';
 import { downloadBlob } from '@/utils/blob';
-import { ComponentDefinition } from '@/core/component-system/types';
+import { ComponentDefinition } from '@/_deprecated/core/component-system/types';
 import { ComponentTree } from './ComponentTree';
-import { ButtonComponent } from '@/hadix-components/ButtonComponent';
-import { InputComponent } from '@/hadix-components/InputComponent';
-import { ContainerComponent } from '@/hadix-components/ContainerComponent';
-import { TextComponent } from '@/hadix-components/TextComponent';
-import { ImageComponent } from '@/hadix-components/ImageComponent';
+import { ButtonComponent } from '@/_deprecated/hadix-components/ButtonComponent';
+import { InputComponent } from '@/_deprecated/hadix-components/InputComponent';
+import { ContainerComponent } from '@/_deprecated/hadix-components/ContainerComponent';
+import { TextComponent } from '@/_deprecated/hadix-components/TextComponent';
+import { ImageComponent } from '@/_deprecated/hadix-components/ImageComponent';
 
 const sampleConfig = {
   version: '0.0.1',
