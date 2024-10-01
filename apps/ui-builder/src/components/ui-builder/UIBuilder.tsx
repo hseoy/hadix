@@ -5,7 +5,12 @@ import { Canvas } from './Canvas';
 import { useHadixEditor } from '@/hooks/use-hadix-editor';
 
 export function UIBuilder() {
-  const { initializeEditor, editorState, editorDocument } = useHadixEditor();
+  const {
+    initializeEditor,
+    editorState,
+    editorDocument,
+    updateDocumentMetadata,
+  } = useHadixEditor();
 
   useEffect(() => {
     initializeEditor();
@@ -51,7 +56,10 @@ export function UIBuilder() {
         </div>
 
         {/* Canvas */}
-        <Canvas editorDocument={editorDocument} />
+        <Canvas
+          editorDocument={editorDocument}
+          onUpdateDocumentMetadata={updateDocumentMetadata}
+        />
       </div>
     </div>
   );

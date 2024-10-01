@@ -19,15 +19,9 @@ export interface IBlockProperties {
 export interface IDocument {
   id: string; // 문서 ID
   blocks: IBlock[]; // 문서에 포함된 블록 배열
-  metadata?: IDocumentMetadata; // 메타데이터 (작성자, 생성일 등)
+  metadata: IDocumentMetadata; // 메타데이터 (작성자, 생성일 등)
 
-  addBlock(block: IBlock): void;
-  updateBlock(id: string, updatedBlock: IBlock): void;
-  removeBlock(id: string): void;
-  getBlockById(id: string): IBlock | null;
-  clearBlocks(): void;
   clone(): IDocument;
-  updateMetadata(metadata: Partial<IDocumentMetadata>): void;
 }
 
 // 문서 메타데이터 인터페이스
@@ -43,7 +37,7 @@ export interface IEditorState {
   selection: ISelectionState; // 사용자 선택 상태 (선택 범위, 커서 위치 등)
   history: ITransaction[]; // 트랜잭션 기록 (undo/redo 용)
 
-  setOnUpdateDocument(callback: (document: IDocument) => void): void;
+  applyTransaction(transaction: ITransaction): IEditorState;
 }
 
 // 선택 상태를 관리하는 인터페이스

@@ -33,4 +33,12 @@ export class HadixEditorState implements IEditorState {
   setOnUpdateDocument(callback: (document: IDocument) => void) {
     this.onUpdateDocument = callback;
   }
+
+  applyTransaction(transaction: ITransaction) {
+    this.history.push(transaction);
+    this.document = transaction.afterState;
+    this.onUpdateDocument?.(this.document);
+
+    return this;
+  }
 }

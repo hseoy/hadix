@@ -1,22 +1,46 @@
 'use client';
 
-import { IDocument } from '@/hadix-core/types/core';
+import { IDocument, IDocumentMetadata } from '@/hadix-core/types/core';
+import { CanvasBackground } from '@/components/ui-builder/CanvasBackground';
+import EditableContent from '@/components/EditableContent';
 
 interface CanvasProps {
   editorDocument: IDocument | null;
+  onUpdateDocumentMetadata?: (metadata: Partial<IDocumentMetadata>) => void;
 }
-export function Canvas({ editorDocument }: CanvasProps) {
+export function Canvas({
+  editorDocument,
+  onUpdateDocumentMetadata,
+}: CanvasProps) {
+  if (!editorDocument) {
+    // Empty Canvas
+    return (
+      <div className="w-full h-full bg-gray-100 transition-colors duration-300 relative overflow-hidden">
+        <CanvasBackground />
+      </div>
+    );
+  }
+
+  const documentName = editorDocument.metadata.title;
+
   return (
     <div className="w-full h-full bg-gray-100 transition-colors duration-300 relative overflow-hidden">
-      {/* 그리드 배경 */}
-      <div
-        className="absolute inset-0 bg-grid bg-center"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1h98v98h-98z' stroke='%23E5E7EB' fill='none' stroke-width='0.5'/%3E%3C/svg%3E\")",
-          backgroundSize: '25px 25px',
-        }}
-      ></div>
+      <CanvasBackground />
+
+      {/* LEFT TOP Section */}
+      <div className="absolute top-0 left-0">
+        <div className="ml-4 mt-4">
+          <EditableContent
+            content={documentName}
+            onUpdateContent={content =>
+              onUpdateDocumentMetadata?.({ title: content })
+            }
+          />
+        </div>
+      </div>
+
+      {/* RIGHT TOP Section */}
+      <div className="absolute top-0 right-0"></div>
     </div>
   );
 }

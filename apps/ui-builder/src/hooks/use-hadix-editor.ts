@@ -1,3 +1,4 @@
+import { UpdateMetadataCommand } from '@/hadix-core/commands/UpdateMetadataCommand';
 import { HadixDocument } from '@/hadix-core/HadixDocument';
 import { HadixEditorState } from '@/hadix-core/HadixEditorState';
 import { HadixSelectionState } from '@/hadix-core/HadixSelectionState';
@@ -29,5 +30,19 @@ export const useHadixEditor = () => {
 
   const editorState = editorStateRef.current;
 
-  return { initializeEditor, editorState, editorDocument };
+  const updateDocumentMetadata = useCallback(
+    (metadata: Partial<IDocumentMetadata>) => {
+      if (!editorState) return;
+      const command = new UpdateMetadataCommand(metadata);
+      command.execute(editorState);
+    },
+    [editorState],
+  );
+
+  return {
+    initializeEditor,
+    editorState,
+    editorDocument,
+    updateDocumentMetadata,
+  };
 };
