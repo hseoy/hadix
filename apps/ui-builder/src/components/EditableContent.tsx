@@ -20,7 +20,9 @@ const EditableContent: React.FC<EditableContentProps> = ({
 
   const onFocusOut = () => {
     setIsEditing(false);
-    onUpdateContent(editedContent);
+    if (editedContent !== content) {
+      onUpdateContent(editedContent);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
