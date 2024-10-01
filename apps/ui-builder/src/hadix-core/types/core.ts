@@ -42,6 +42,8 @@ export interface IEditorState {
   document: IDocument; // 현재 편집 중인 문서
   selection: ISelectionState; // 사용자 선택 상태 (선택 범위, 커서 위치 등)
   history: ITransaction[]; // 트랜잭션 기록 (undo/redo 용)
+
+  setOnUpdateDocument(callback: (document: IDocument) => void): void;
 }
 
 // 선택 상태를 관리하는 인터페이스

@@ -1,6 +1,24 @@
+'use client';
+
+import { useEffect } from 'react';
 import { Canvas } from './Canvas';
+import { useHadixEditor } from '@/hooks/use-hadix-editor';
 
 export function UIBuilder() {
+  const { initializeEditor, editorState, editorDocument } = useHadixEditor();
+
+  useEffect(() => {
+    initializeEditor();
+  }, []);
+
+  useEffect(() => {
+    console.log('CHANGED EDITOR STATE:', editorState);
+  }, [editorState]);
+
+  useEffect(() => {
+    console.log('CHANGED EDITOR DOCUMENT:', editorDocument);
+  }, [editorDocument]);
+
   return (
     <div className="w-full h-full flex flex-col">
       <header className="w-full h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 z-10">
@@ -33,7 +51,7 @@ export function UIBuilder() {
         </div>
 
         {/* Canvas */}
-        <Canvas />
+        <Canvas editorDocument={editorDocument} />
       </div>
     </div>
   );

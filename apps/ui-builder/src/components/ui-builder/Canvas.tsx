@@ -1,6 +1,11 @@
 'use client';
 
-export function Canvas() {
+import { IDocument } from '@/hadix-core/types/core';
+
+interface CanvasProps {
+  editorDocument: IDocument | null;
+}
+export function Canvas({ editorDocument }: CanvasProps) {
   return (
     <div className="w-full h-full bg-gray-100 transition-colors duration-300 relative overflow-hidden">
       {/* 그리드 배경 */}
