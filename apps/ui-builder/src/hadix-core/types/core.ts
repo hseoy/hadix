@@ -38,6 +38,8 @@ export interface IEditorState {
   history: ITransaction[]; // 트랜잭션 기록 (undo/redo 용)
 
   applyTransaction(transaction: ITransaction): IEditorState;
+  undo(): IEditorState;
+  redo(): IEditorState;
 }
 
 // 선택 상태를 관리하는 인터페이스
