@@ -43,7 +43,10 @@ export function UIBuilder() {
             Github
           </a>
           {/* Export */}
-          <button className="text-sm text-gray-500" onClick={exportDocument}>
+          <button
+            className="text-sm text-gray-500"
+            onClick={() => exportDocument()}
+          >
             Export
           </button>
         </div>

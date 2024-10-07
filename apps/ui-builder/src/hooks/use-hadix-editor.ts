@@ -1,3 +1,4 @@
+import { ExportDocumentCommand } from '@/hadix-core/commands/ExportDocumentCommand';
 import { UpdateMetadataCommand } from '@/hadix-core/commands/UpdateMetadataCommand';
 import { HadixDocument } from '@/hadix-core/HadixDocument';
 import { HadixEditorHistory } from '@/hadix-core/HadixEditorHistory';
@@ -40,11 +41,14 @@ export const useHadixEditor = () => {
     [editorState],
   );
 
-  const exportDocument = useCallback(() => {
-    const serializedDocument = editorState?.serializeDocument() || '';
-    const blob = new Blob([serializedDocument], { type: 'application/json' });
-    downloadBlob(blob, 'document.json');
-  }, [editorState]);
+  const exportDocument = useCallback(
+    (fileName?: string) => {
+      if (!editorState) return;
+      const command = new ExportDocumentCommand(fileName);
+      command.execute(editorState);
+    },
+    [editorState],
+  );
 
   useEffect(() => {
     if (!editorState) return;
