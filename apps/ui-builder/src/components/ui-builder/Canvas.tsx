@@ -22,6 +22,7 @@ export function Canvas({
   }
 
   const documentName = editorDocument.metadata.title;
+  const updatedAt = editorDocument.metadata.updatedAt;
 
   return (
     <div className="w-full h-full bg-gray-100 transition-colors duration-300 relative overflow-hidden">
@@ -30,6 +31,12 @@ export function Canvas({
       {/* LEFT TOP Section */}
       <div className="absolute top-0 left-0">
         <div className="ml-4 mt-4">
+          <div className="flex flex-row gap-2">
+            <span className="text-xs text-gray-500">
+              {updatedAt.toLocaleString()}
+            </span>
+          </div>
+
           <EditableContent
             content={documentName}
             onUpdateContent={content =>

@@ -10,8 +10,11 @@ export class UpdateMetadataCommand implements ICommand {
 
   private metadata: Partial<IDocumentMetadata>;
 
-  constructor(metadata: Partial<IDocumentMetadata>) {
-    this.metadata = metadata;
+  constructor(metadata: Partial<Omit<IDocumentMetadata, 'updatedAt'>>) {
+    this.metadata = {
+      ...metadata,
+      updatedAt: new Date(),
+    };
   }
 
   execute(state: IEditorState): IEditorState {
