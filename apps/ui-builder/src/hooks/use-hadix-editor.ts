@@ -7,6 +7,7 @@ import {
   IDocumentMetadata,
   IEditorState,
 } from '@/hadix-core/types/core';
+import { downloadBlob } from '@/utils/blob';
 import { useState, useRef, useCallback, useEffect } from 'react';
 
 const initialDocumentMetadata: IDocumentMetadata = {
@@ -39,6 +40,12 @@ export const useHadixEditor = () => {
     [editorState],
   );
 
+  const exportDocument = useCallback(() => {
+    const serializedDocument = editorState?.serializeDocument() || '';
+    const blob = new Blob([serializedDocument], { type: 'application/json' });
+    downloadBlob(blob, 'document.json');
+  }, [editorState]);
+
   useEffect(() => {
     if (!editorState) return;
     const keyDownHandler = (event: KeyboardEvent) => {
@@ -65,5 +72,6 @@ export const useHadixEditor = () => {
     editorState,
     editorDocument,
     updateDocumentMetadata,
+    exportDocument,
   };
 };

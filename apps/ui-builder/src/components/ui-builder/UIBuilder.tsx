@@ -10,6 +10,7 @@ export function UIBuilder() {
     editorState,
     editorDocument,
     updateDocumentMetadata,
+    exportDocument,
   } = useHadixEditor();
 
   useEffect(() => {
@@ -42,7 +43,9 @@ export function UIBuilder() {
             Github
           </a>
           {/* Export */}
-          <button className="text-sm text-gray-500">Export</button>
+          <button className="text-sm text-gray-500" onClick={exportDocument}>
+            Export
+          </button>
         </div>
       </header>
 

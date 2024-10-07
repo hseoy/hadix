@@ -31,4 +31,13 @@ export class HadixDocument implements IDocument {
   getMetadata() {
     return this.metadata;
   }
+
+  serialize() {
+    const serializedBlocks = this.blocks.map(block => block.serialize());
+    return JSON.stringify({
+      id: this.id,
+      metadata: this.metadata,
+      blocks: serializedBlocks,
+    });
+  }
 }
