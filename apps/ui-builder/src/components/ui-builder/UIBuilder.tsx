@@ -26,10 +26,15 @@ export function UIBuilder() {
   return (
     <div className="w-full h-full flex flex-col">
       <header className="w-full h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 z-10">
-        <hgroup className="flex flex-row gap-2 items-baseline">
-          <h1 className="text-xl font-bold">Hadix</h1>
-          <h2 className="text-sm text-gray-500">UI Builder</h2>
-        </hgroup>
+        <div className="flex flex-row gap-2 items-center">
+          <hgroup className="flex flex-row gap-1 items-baseline">
+            <h1 className="text-xl font-bold">Hadix</h1>
+            <h2 className="text-sm text-gray-500">UI Builder</h2>
+          </hgroup>
+          <div className="text-xs text-gray-500 bg-black text-white px-2 py-1 rounded-md">
+            Developing
+          </div>
+        </div>
         <div className="flex items-center gap-2">
           {/* Github Link */}
           <a
