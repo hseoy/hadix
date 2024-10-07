@@ -9,7 +9,7 @@ export class ExportDocumentCommand implements ICommand {
   }
 
   execute(state: IEditorState): IEditorState {
-    const serializedDocument = state.serializeDocument();
+    const serializedDocument = state.serializeDocument(true);
     const blob = new Blob([serializedDocument], { type: 'application/json' });
     downloadBlob(blob, this.fileName);
 

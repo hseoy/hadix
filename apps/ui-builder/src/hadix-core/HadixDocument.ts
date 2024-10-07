@@ -32,8 +32,11 @@ export class HadixDocument implements IDocument {
     return this.metadata;
   }
 
-  serialize() {
-    const serializedBlocks = this.blocks.map(block => block.serialize());
+  serialize(isEditor?: boolean) {
+    const serializedBlocks = this.blocks.map(block =>
+      block.serialize(isEditor),
+    );
+
     return JSON.stringify({
       id: this.id,
       metadata: this.metadata,

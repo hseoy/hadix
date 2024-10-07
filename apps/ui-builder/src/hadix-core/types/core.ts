@@ -4,9 +4,10 @@ export interface IBlock {
   type: string; // 블록 유형 (ex: 'text', 'image', 'button')
   content: string | null; // 블록 콘텐츠
   properties?: IBlockProperties; // 추가 속성 (스타일, 크기, 링크 등)
+  editorProperties?: IBlockEditorProperties; // 추가 속성 (스타일, 크기, 링크 등)
   children?: IBlock[]; // 중첩된 블록 배열
 
-  serialize(): string;
+  serialize(isEditor?: boolean): string;
 }
 
 // 블록 속성 인터페이스
@@ -14,7 +15,16 @@ export interface IBlockProperties {
   width?: string; // 블록의 너비 (ex: '100px', '50%')
   height?: string; // 블록의 높이
   style?: object; // 인라인 스타일
-  link?: string; // 버튼이나 이미지에 걸릴 링크
+}
+
+// 블록 에디터 속성 인터페이스
+export interface IBlockEditorProperties {
+  position?: {
+    top?: string;
+    left?: string;
+    right?: string;
+    bottom?: string;
+  };
 }
 
 // 전체 페이지 구조를 표현하는 Document 인터페이스
@@ -31,7 +41,7 @@ export interface IDocument {
     metadata?: Partial<IDocumentMetadata>;
   }): IDocument;
 
-  serialize(): string;
+  serialize(isEditor?: boolean): string;
 }
 
 // 문서 메타데이터 인터페이스
@@ -54,7 +64,7 @@ export interface IEditorState {
   selection?: ISelectionState; // 사용자 선택 상태 (선택 범위, 커서 위치 등)
 
   getDocument(): IDocument;
-  serializeDocument(): string;
+  serializeDocument(isEditor?: boolean): string;
   applyTransaction(transaction: ITransaction): IEditorState;
   undo(): IEditorState;
   redo(): IEditorState;

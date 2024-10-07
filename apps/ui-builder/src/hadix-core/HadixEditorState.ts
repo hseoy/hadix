@@ -34,8 +34,8 @@ export class HadixEditorState implements IEditorState {
     return this.history.getDocument();
   }
 
-  serializeDocument(): string {
-    return this.getDocument().serialize();
+  serializeDocument(isEditor?: boolean): string {
+    return this.getDocument().serialize(isEditor);
   }
 
   applyTransaction(transaction: ITransaction) {
