@@ -81,3 +81,7 @@ export interface ICommand {
   name: string; // 명령어 이름
   execute: (state: IEditorState) => IEditorState; // 명령 실행 함수
 }
+
+export interface ICommandExecutor {
+  execute(command: ICommand): IEditorState;
+}

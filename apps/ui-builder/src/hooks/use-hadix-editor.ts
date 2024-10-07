@@ -1,14 +1,13 @@
-import { ExportDocumentCommand } from '@/hadix-core/commands/ExportDocumentCommand';
-import { UpdateMetadataCommand } from '@/hadix-core/commands/UpdateMetadataCommand';
+import { HadixCommandExecutor } from '@/hadix-core/HadixCommandExecutor';
 import { HadixDocument } from '@/hadix-core/HadixDocument';
 import { HadixEditorHistory } from '@/hadix-core/HadixEditorHistory';
 import { HadixEditorState } from '@/hadix-core/HadixEditorState';
 import {
+  ICommandExecutor,
   IDocument,
   IDocumentMetadata,
   IEditorState,
 } from '@/hadix-core/types/core';
-import { downloadBlob } from '@/utils/blob';
 import { useState, useRef, useCallback, useEffect } from 'react';
 
 const initialDocumentMetadata: IDocumentMetadata = {
@@ -20,6 +19,7 @@ const initialDocumentMetadata: IDocumentMetadata = {
 export const useHadixEditor = () => {
   const [editorDocument, setEditorDocument] = useState<IDocument | null>(null);
   const editorStateRef = useRef<IEditorState | null>(null);
+  const commandExecutorRef = useRef<ICommandExecutor | null>(null);
 
   const initializeEditor = useCallback((metadata?: IDocumentMetadata) => {
     const document = new HadixDocument([], metadata || initialDocumentMetadata);
@@ -28,27 +28,14 @@ export const useHadixEditor = () => {
       history: new HadixEditorHistory([], document),
       onUpdateDocument: newDocument => setEditorDocument(newDocument),
     });
+
+    commandExecutorRef.current = new HadixCommandExecutor(
+      editorStateRef.current,
+    );
   }, []);
 
   const editorState = editorStateRef.current;
-
-  const updateDocumentMetadata = useCallback(
-    (metadata: Partial<IDocumentMetadata>) => {
-      if (!editorState) return;
-      const command = new UpdateMetadataCommand(metadata);
-      command.execute(editorState);
-    },
-    [editorState],
-  );
-
-  const exportDocument = useCallback(
-    (fileName?: string) => {
-      if (!editorState) return;
-      const command = new ExportDocumentCommand(fileName);
-      command.execute(editorState);
-    },
-    [editorState],
-  );
+  const commandExecutor = commandExecutorRef.current;
 
   useEffect(() => {
     if (!editorState) return;
@@ -75,7 +62,6 @@ export const useHadixEditor = () => {
     initializeEditor,
     editorState,
     editorDocument,
-    updateDocumentMetadata,
-    exportDocument,
+    commandExecutor,
   };
 };

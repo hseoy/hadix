@@ -3,15 +3,13 @@
 import { useEffect } from 'react';
 import { Canvas } from './Canvas';
 import { useHadixEditor } from '@/hooks/use-hadix-editor';
+import { useHadixCommands } from '@/hooks/use-hadix-commands';
 
 export function UIBuilder() {
-  const {
-    initializeEditor,
-    editorState,
-    editorDocument,
-    updateDocumentMetadata,
-    exportDocument,
-  } = useHadixEditor();
+  const { initializeEditor, editorState, editorDocument, commandExecutor } =
+    useHadixEditor();
+  const { updateDocumentMetadata, exportDocument } =
+    useHadixCommands(commandExecutor);
 
   useEffect(() => {
     initializeEditor();
