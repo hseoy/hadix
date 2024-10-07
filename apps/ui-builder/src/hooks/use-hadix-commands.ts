@@ -1,5 +1,5 @@
-import { ExportDocumentCommand } from '@/hadix-core/commands/ExportDocumentCommand';
-import { UpdateMetadataCommand } from '@/hadix-core/commands/UpdateMetadataCommand';
+import { ExportDocumentCommand } from '@/hadix-commands/ExportDocumentCommand';
+import { UpdateMetadataCommand } from '@/hadix-commands/UpdateMetadataCommand';
 import { ICommandExecutor, IDocumentMetadata } from '@/hadix-core/types/core';
 import { useCallback } from 'react';
 
