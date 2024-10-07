@@ -15,6 +15,10 @@ export class HadixEditorHistory implements IEditorHistory {
     this.currentDocument = currentDocument;
   }
 
+  getInitialDocument() {
+    return this.history[0].beforeState;
+  }
+
   getDocument() {
     return this.currentDocument;
   }

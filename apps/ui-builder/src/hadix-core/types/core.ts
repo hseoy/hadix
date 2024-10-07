@@ -38,6 +38,7 @@ export interface IDocumentMetadata {
 }
 
 export interface IEditorHistory {
+  getInitialDocument(): IDocument;
   getDocument(): IDocument;
   applyTransaction(transaction: ITransaction): IEditorHistory;
   undo(): IEditorHistory;
