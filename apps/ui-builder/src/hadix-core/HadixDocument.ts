@@ -13,9 +13,18 @@ export class HadixDocument implements IDocument {
   }
 
   // 문서 복제
-  clone() {
-    const newBlocks = this.blocks.map(block => ({ ...block }));
-    return new HadixDocument(newBlocks, this.metadata);
+  clone({
+    blocks,
+    metadata,
+  }: {
+    blocks?: IBlock[];
+    metadata?: Partial<IDocumentMetadata>;
+  }) {
+    const newBlocks = blocks ?? this.blocks.map(block => ({ ...block }));
+    return new HadixDocument(newBlocks, {
+      ...this.metadata,
+      ...(metadata ? metadata : {}),
+    });
   }
 
   // Metadata 조회

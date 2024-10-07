@@ -1,11 +1,9 @@
-import { nanoid } from 'nanoid';
-import { HadixDocument } from '../HadixDocument';
 import {
   ICommand,
   IDocumentMetadata,
   IEditorState,
-  ITransaction,
-} from '../types/core';
+} from '@/hadix-core/types/core';
+import { HadixTransaction } from '@/hadix-core/HadixTransaction';
 
 export class UpdateMetadataCommand implements ICommand {
   name = 'updateMetadata';
@@ -17,14 +15,12 @@ export class UpdateMetadataCommand implements ICommand {
   }
 
   execute(state: IEditorState): IEditorState {
-    const newMetaData = { ...state.document.metadata, ...this.metadata };
-    const transaction: ITransaction = {
-      id: nanoid(),
-      action: this.name,
-      timestamp: new Date(),
-      beforeState: state.document,
-      afterState: new HadixDocument(state.document.blocks, newMetaData),
-    };
+    const document = state.getDocument();
+    const transaction = new HadixTransaction(
+      this.name,
+      document,
+      document.clone({ metadata: this.metadata }),
+    );
     return state.applyTransaction(transaction);
   }
 }

@@ -3,69 +3,52 @@ import {
   IDocument,
   ISelectionState,
   ITransaction,
+  IEditorHistory,
 } from './types/core';
 
 export class HadixEditorState implements IEditorState {
-  public document: IDocument;
-  public selection: ISelectionState;
-  public history: ITransaction[];
-  private historyIndex: number;
+  public selection?: ISelectionState;
+  public history: IEditorHistory;
   private onUpdateDocument?: (document: IDocument) => void;
 
   constructor({
-    document,
     selection,
     history,
     onUpdateDocument,
   }: {
-    document: IDocument;
-    selection: ISelectionState;
-    history: ITransaction[];
+    selection?: ISelectionState;
+    history: IEditorHistory;
     onUpdateDocument?: (document: IDocument) => void;
   }) {
-    this.document = document;
     this.selection = selection;
     this.history = history;
-    this.historyIndex = history.length - 1;
     this.onUpdateDocument = onUpdateDocument;
-
-    this.onUpdateDocument?.(document);
+    this.onUpdateDocument?.(this.getDocument());
   }
 
   setOnUpdateDocument(callback: (document: IDocument) => void) {
     this.onUpdateDocument = callback;
   }
 
-  applyTransaction(transaction: ITransaction) {
-    // History index가 최신 트랜잭션 이전이라면 현재 트랜잭션 이후의 트랜잭션들을 삭제
-    if (this.historyIndex < this.history.length - 1) {
-      this.history = this.history.slice(0, this.historyIndex + 1);
-    }
-    this.history.push(transaction);
-    this.historyIndex += 1;
-    this.document = transaction.afterState;
-    this.onUpdateDocument?.(this.document);
+  getDocument(): IDocument {
+    return this.history.getDocument();
+  }
 
+  applyTransaction(transaction: ITransaction) {
+    this.history.applyTransaction(transaction);
+    this.onUpdateDocument?.(this.getDocument());
     return this;
   }
 
   undo() {
-    if (this.historyIndex >= 0) {
-      this.document = this.history[this.historyIndex].beforeState;
-      this.onUpdateDocument?.(this.document);
-      this.historyIndex -= 1;
-    }
-
+    this.history.undo();
+    this.onUpdateDocument?.(this.getDocument());
     return this;
   }
 
   redo() {
-    if (this.historyIndex < this.history.length - 1) {
-      this.historyIndex += 1;
-      this.document = this.history[this.historyIndex].afterState;
-      this.onUpdateDocument?.(this.document);
-    }
-
+    this.history.redo();
+    this.onUpdateDocument?.(this.getDocument());
     return this;
   }
 }

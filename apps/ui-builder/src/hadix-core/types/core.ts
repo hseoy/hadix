@@ -21,7 +21,13 @@ export interface IDocument {
   blocks: IBlock[]; // 문서에 포함된 블록 배열
   metadata: IDocumentMetadata; // 메타데이터 (작성자, 생성일 등)
 
-  clone(): IDocument;
+  clone({
+    blocks,
+    metadata,
+  }: {
+    blocks?: IBlock[];
+    metadata?: Partial<IDocumentMetadata>;
+  }): IDocument;
 }
 
 // 문서 메타데이터 인터페이스
@@ -31,12 +37,18 @@ export interface IDocumentMetadata {
   updatedAt: Date; // 수정 일시
 }
 
+export interface IEditorHistory {
+  getDocument(): IDocument;
+  applyTransaction(transaction: ITransaction): IEditorHistory;
+  undo(): IEditorHistory;
+  redo(): IEditorHistory;
+}
+
 // 에디터 상태를 관리하는 인터페이스
 export interface IEditorState {
-  document: IDocument; // 현재 편집 중인 문서
-  selection: ISelectionState; // 사용자 선택 상태 (선택 범위, 커서 위치 등)
-  history: ITransaction[]; // 트랜잭션 기록 (undo/redo 용)
+  selection?: ISelectionState; // 사용자 선택 상태 (선택 범위, 커서 위치 등)
 
+  getDocument(): IDocument;
   applyTransaction(transaction: ITransaction): IEditorState;
   undo(): IEditorState;
   redo(): IEditorState;

@@ -1,7 +1,7 @@
 import { UpdateMetadataCommand } from '@/hadix-core/commands/UpdateMetadataCommand';
 import { HadixDocument } from '@/hadix-core/HadixDocument';
+import { HadixEditorHistory } from '@/hadix-core/HadixEditorHistory';
 import { HadixEditorState } from '@/hadix-core/HadixEditorState';
-import { HadixSelectionState } from '@/hadix-core/HadixSelectionState';
 import {
   IDocument,
   IDocumentMetadata,
@@ -20,10 +20,10 @@ export const useHadixEditor = () => {
   const editorStateRef = useRef<IEditorState | null>(null);
 
   const initializeEditor = useCallback((metadata?: IDocumentMetadata) => {
+    const document = new HadixDocument([], metadata || initialDocumentMetadata);
+
     editorStateRef.current = new HadixEditorState({
-      document: new HadixDocument([], metadata || initialDocumentMetadata),
-      selection: new HadixSelectionState(),
-      history: [],
+      history: new HadixEditorHistory([], document),
       onUpdateDocument: newDocument => setEditorDocument(newDocument),
     });
   }, []);
