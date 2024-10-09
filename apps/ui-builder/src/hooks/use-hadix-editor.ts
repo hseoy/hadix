@@ -64,27 +64,6 @@ export const useHadixEditor = () => {
   const editorState = editorStateRef.current;
   const commandExecutor = commandExecutorRef.current;
 
-  useEffect(() => {
-    if (!editorState) return;
-    const keyDownHandler = (event: KeyboardEvent) => {
-      if (event.key === 'z' && event.metaKey && event.shiftKey) {
-        // Cmd + Shift + Z
-        editorState?.redo();
-        return;
-      }
-
-      if (event.key === 'z' && event.metaKey) {
-        // Cmd + Z
-        editorState?.undo();
-        return;
-      }
-    };
-
-    document.addEventListener('keydown', keyDownHandler);
-
-    return () => document.removeEventListener('keydown', keyDownHandler);
-  }, [editorState]);
-
   return {
     isInitialized,
     initializeEditor,

@@ -5,12 +5,16 @@ import { Canvas } from './Canvas';
 import { useHadixEditor } from '@/hooks/use-hadix-editor';
 import { useHadixCommands } from '@/hooks/use-hadix-commands';
 import EditableContent from '@/components/EditableContent';
+import { useHadixEditorKeyMapEffect } from '@/hooks/use-hadix-editor-key-map-effect';
 
 export function UIBuilder() {
   const { initializeEditor, editorState, editorDocument, commandExecutor } =
     useHadixEditor();
   const { updateDocumentMetadata, exportDocument } =
     useHadixCommands(commandExecutor);
+
+  // 키보드 맵 Effect 적용
+  useHadixEditorKeyMapEffect(editorState);
 
   useEffect(() => {
     initializeEditor();
