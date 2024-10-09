@@ -75,6 +75,8 @@ export interface IEditorState {
   applyTransaction(transaction: ITransaction): IEditorState;
   undo(): IEditorState;
   redo(): IEditorState;
+  zoomIn(zoomToAdd?: number): IEditorState;
+  zoomOut(zoomToSubtract?: number): IEditorState;
 }
 
 // 선택 상태를 관리하는 인터페이스

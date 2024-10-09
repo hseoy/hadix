@@ -58,4 +58,18 @@ export class HadixEditorState implements IEditorState {
     this.history.redo();
     return this;
   }
+
+  zoomIn(zoomToAdd = 1) {
+    const zoom = this.getConfig().zoom || 0;
+    const nextZoom = Math.min(Math.max(1, zoom + zoomToAdd), 2500);
+    this.updateConfig({ zoom: nextZoom });
+    return this;
+  }
+
+  zoomOut(zoomToSubtract = 1) {
+    const zoom = this.getConfig().zoom || 0;
+    const nextZoom = Math.min(Math.max(1, zoom - zoomToSubtract), 2500);
+    this.updateConfig({ zoom: nextZoom });
+    return this;
+  }
 }

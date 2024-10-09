@@ -5,16 +5,21 @@ import { Canvas } from './Canvas';
 import { useHadixEditor } from '@/hooks/use-hadix-editor';
 import { useHadixCommands } from '@/hooks/use-hadix-commands';
 import EditableContent from '@/components/EditableContent';
-import { useHadixEditorKeyMapEffect } from '@/hooks/use-hadix-editor-key-map-effect';
+import { useHadixEditorGlobalEvents } from '@/hooks/use-hadix-editor-global-events';
 
 export function UIBuilder() {
-  const { initializeEditor, editorState, editorDocument, commandExecutor } =
-    useHadixEditor();
+  const {
+    initializeEditor,
+    editorConfig,
+    editorState,
+    editorDocument,
+    commandExecutor,
+  } = useHadixEditor();
   const { updateDocumentMetadata, exportDocument } =
     useHadixCommands(commandExecutor);
 
-  // 키보드 맵 Effect 적용
-  useHadixEditorKeyMapEffect(editorState);
+  // Editor 관련 전역 이벤트 핸들러 등록
+  useHadixEditorGlobalEvents(editorState);
 
   useEffect(() => {
     initializeEditor();
@@ -58,6 +63,9 @@ export function UIBuilder() {
 
         {/* Right */}
         <div className="flex items-center gap-2">
+          {/* Display Zoom */}
+          <div className="text-sm text-gray-500">{editorConfig.zoom || 0}%</div>
+
           {/* Github Link */}
           <a
             href="https://github.com/hseoy/hadix"
@@ -87,7 +95,7 @@ export function UIBuilder() {
         </div>
 
         {/* Canvas */}
-        <Canvas editorDocument={editorDocument} />
+        <Canvas editorDocument={editorDocument} editorConfig={editorConfig} />
       </div>
     </div>
   );
