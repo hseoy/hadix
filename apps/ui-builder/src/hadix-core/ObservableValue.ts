@@ -29,7 +29,9 @@ export class ObservableValue<T> implements IObservableValue<T> {
   }
 }
 
-export const observableValue = <T>(value: T | IObservableValue<T>) => {
+export const observableValue = <T>(
+  value: T | IObservableValue<T>,
+): IObservableValue<T> => {
   if (isObservableValue(value)) {
     return value;
   }
@@ -39,5 +41,16 @@ export const observableValue = <T>(value: T | IObservableValue<T>) => {
 export const isObservableValue = <T>(
   value: unknown,
 ): value is IObservableValue<T> => {
-  return value instanceof ObservableValue;
+  const isHasMethod = (methodName: string) =>
+    typeof value === 'object' &&
+    value !== null &&
+    methodName in value &&
+    typeof value[methodName as keyof typeof value] === 'function';
+
+  const hasValidGet = isHasMethod('get');
+  const hasValidSet = isHasMethod('set');
+  const hasValidSubscribe = isHasMethod('subscribe');
+  const hasValidUnsubscribe = isHasMethod('unsubscribe');
+
+  return hasValidGet && hasValidSet && hasValidSubscribe && hasValidUnsubscribe;
 };
