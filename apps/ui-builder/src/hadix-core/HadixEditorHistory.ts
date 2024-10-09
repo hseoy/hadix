@@ -1,18 +1,28 @@
 import {
   IDocument,
   IEditorHistory,
+  IObservableValue,
   ITransaction,
 } from '@/hadix-core/types/core';
+import {
+  isObservableValue,
+  observableValue,
+} from '@/hadix-core/ObservableValue';
 
 export class HadixEditorHistory implements IEditorHistory {
   private history: ITransaction[];
   private historyIndex: number;
-  private currentDocument: IDocument;
+  private currentDocument: IObservableValue<IDocument>;
 
-  constructor(history: ITransaction[], currentDocument: IDocument) {
+  constructor(
+    history: ITransaction[],
+    currentDocument: IObservableValue<IDocument> | IDocument,
+  ) {
     this.history = history;
     this.historyIndex = history.length - 1;
-    this.currentDocument = currentDocument;
+    this.currentDocument = isObservableValue(currentDocument)
+      ? currentDocument
+      : observableValue(currentDocument);
   }
 
   getInitialDocument() {
@@ -20,7 +30,7 @@ export class HadixEditorHistory implements IEditorHistory {
   }
 
   getDocument() {
-    return this.currentDocument;
+    return this.currentDocument.get();
   }
 
   applyTransaction(transaction: ITransaction) {
@@ -50,14 +60,14 @@ export class HadixEditorHistory implements IEditorHistory {
   private increaseHistoryIndex() {
     if (this.historyIndex < this.getMaxHistoryIndex()) {
       this.historyIndex += 1;
-      this.currentDocument = this.history[this.historyIndex].afterState;
+      this.currentDocument.set(this.history[this.historyIndex].afterState);
     }
     return this;
   }
 
   private decreaseHistoryIndex() {
     if (this.historyIndex >= this.getMinHistoryIndex()) {
-      this.currentDocument = this.history[this.historyIndex].beforeState;
+      this.currentDocument.set(this.history[this.historyIndex].beforeState);
       this.historyIndex -= 1;
     }
     return this;

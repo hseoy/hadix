@@ -2,6 +2,7 @@ import { HadixCommandExecutor } from '@/hadix-core/HadixCommandExecutor';
 import { HadixDocument } from '@/hadix-core/HadixDocument';
 import { HadixEditorHistory } from '@/hadix-core/HadixEditorHistory';
 import { HadixEditorState } from '@/hadix-core/HadixEditorState';
+import { observableValue } from '@/hadix-core/ObservableValue';
 import {
   ICommandExecutor,
   IDocument,
@@ -21,12 +22,19 @@ export const useHadixEditor = () => {
   const editorStateRef = useRef<IEditorState | null>(null);
   const commandExecutorRef = useRef<ICommandExecutor | null>(null);
 
+  const onUpdateDocument = useCallback((document: IDocument) => {
+    setEditorDocument(document);
+  }, []);
+
   const initializeEditor = useCallback((metadata?: IDocumentMetadata) => {
-    const document = new HadixDocument([], metadata || initialDocumentMetadata);
+    const document = observableValue(
+      new HadixDocument([], metadata || initialDocumentMetadata),
+    );
+    document.subscribe(onUpdateDocument);
 
     editorStateRef.current = new HadixEditorState({
       history: new HadixEditorHistory([], document),
-      onUpdateDocument: newDocument => setEditorDocument(newDocument),
+      config: { zoom: 100 },
     });
 
     commandExecutorRef.current = new HadixCommandExecutor(

@@ -59,10 +59,17 @@ export interface IEditorHistory {
   redo(): IEditorHistory;
 }
 
+// 에디터 설정 인터페이스
+export interface IEditorConfig {
+  zoom?: number; // 확대 비율 (100% 기본)
+}
+
 // 에디터 상태를 관리하는 인터페이스
 export interface IEditorState {
   selection?: ISelectionState; // 사용자 선택 상태 (선택 범위, 커서 위치 등)
 
+  getConfig(): IEditorConfig;
+  updateConfig(config: Partial<IEditorConfig>): void;
   getDocument(): IDocument;
   serializeDocument(isEditor?: boolean): string;
   applyTransaction(transaction: ITransaction): IEditorState;
@@ -94,4 +101,15 @@ export interface ICommand {
 
 export interface ICommandExecutor {
   execute(command: ICommand): IEditorState;
+}
+
+export interface ISubscriber<T> {
+  (value: T): void;
+}
+
+export interface IObservableValue<T> {
+  get(): T;
+  set(value: T): void;
+  subscribe(callback: ISubscriber<T>): () => void; // 구독 해제 함수 반환
+  unsubscribe(callback: ISubscriber<T>): void;
 }

@@ -4,30 +4,34 @@ import {
   ISelectionState,
   ITransaction,
   IEditorHistory,
+  IEditorConfig,
 } from './types/core';
 
 export class HadixEditorState implements IEditorState {
   public selection?: ISelectionState;
   public history: IEditorHistory;
-  private onUpdateDocument?: (document: IDocument) => void;
+  private config: IEditorConfig;
 
   constructor({
     selection,
     history,
-    onUpdateDocument,
+    config,
   }: {
     selection?: ISelectionState;
     history: IEditorHistory;
-    onUpdateDocument?: (document: IDocument) => void;
+    config: IEditorConfig;
   }) {
     this.selection = selection;
     this.history = history;
-    this.onUpdateDocument = onUpdateDocument;
-    this.onUpdateDocument?.(this.getDocument());
+    this.config = config;
   }
 
-  setOnUpdateDocument(callback: (document: IDocument) => void) {
-    this.onUpdateDocument = callback;
+  getConfig(): IEditorConfig {
+    return this.config;
+  }
+
+  updateConfig(config: Partial<IEditorConfig>) {
+    this.config = { ...this.config, ...config };
   }
 
   getDocument(): IDocument {
@@ -40,19 +44,16 @@ export class HadixEditorState implements IEditorState {
 
   applyTransaction(transaction: ITransaction) {
     this.history.applyTransaction(transaction);
-    this.onUpdateDocument?.(this.getDocument());
     return this;
   }
 
   undo() {
     this.history.undo();
-    this.onUpdateDocument?.(this.getDocument());
     return this;
   }
 
   redo() {
     this.history.redo();
-    this.onUpdateDocument?.(this.getDocument());
     return this;
   }
 }
