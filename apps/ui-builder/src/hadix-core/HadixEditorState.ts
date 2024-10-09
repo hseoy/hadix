@@ -1,3 +1,4 @@
+import { observableValue } from '@/hadix-core/ObservableValue';
 import {
   IEditorState,
   IDocument,
@@ -5,12 +6,13 @@ import {
   ITransaction,
   IEditorHistory,
   IEditorConfig,
-} from './types/core';
+  IObservableValue,
+} from '@/hadix-core/types/core';
 
 export class HadixEditorState implements IEditorState {
   public selection?: ISelectionState;
   public history: IEditorHistory;
-  private config: IEditorConfig;
+  private config: IObservableValue<IEditorConfig>;
 
   constructor({
     selection,
@@ -19,19 +21,19 @@ export class HadixEditorState implements IEditorState {
   }: {
     selection?: ISelectionState;
     history: IEditorHistory;
-    config: IEditorConfig;
+    config: IObservableValue<IEditorConfig> | IEditorConfig;
   }) {
     this.selection = selection;
     this.history = history;
-    this.config = config;
+    this.config = observableValue(config);
   }
 
   getConfig(): IEditorConfig {
-    return this.config;
+    return this.config.get();
   }
 
   updateConfig(config: Partial<IEditorConfig>) {
-    this.config = { ...this.config, ...config };
+    this.config.set({ ...this.config.get(), ...config });
   }
 
   getDocument(): IDocument {

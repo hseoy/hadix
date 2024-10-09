@@ -7,6 +7,7 @@ import {
   ICommandExecutor,
   IDocument,
   IDocumentMetadata,
+  IEditorConfig,
   IEditorState,
 } from '@/hadix-core/types/core';
 import { useState, useRef, useCallback, useEffect } from 'react';
@@ -17,8 +18,15 @@ const initialDocumentMetadata: IDocumentMetadata = {
   updatedAt: new Date(),
 };
 
+const initialEditorConfig: IEditorConfig = {
+  zoom: 100,
+};
+
 export const useHadixEditor = () => {
+  const [isInitialized, setIsInitialized] = useState(false);
   const [editorDocument, setEditorDocument] = useState<IDocument | null>(null);
+  const [editorConfig, setEditorConfig] =
+    useState<IEditorConfig>(initialEditorConfig);
   const editorStateRef = useRef<IEditorState | null>(null);
   const commandExecutorRef = useRef<ICommandExecutor | null>(null);
 
@@ -26,20 +34,31 @@ export const useHadixEditor = () => {
     setEditorDocument(document);
   }, []);
 
+  const onUpdateConfig = useCallback((config: IEditorConfig) => {
+    setEditorConfig(config);
+  }, []);
+
   const initializeEditor = useCallback((metadata?: IDocumentMetadata) => {
+    // ObservableValue 사용하여 상태 관리
     const document = observableValue(
       new HadixDocument([], metadata || initialDocumentMetadata),
     );
-    document.subscribe(onUpdateDocument);
+    const config = observableValue({ zoom: 100 } satisfies IEditorConfig);
 
+    // 상태 변경 시 콜백 함수 호출
+    document.subscribe(onUpdateDocument);
+    config.subscribe(onUpdateConfig);
+
+    // EditorState & CommandExecutor 생성
     editorStateRef.current = new HadixEditorState({
       history: new HadixEditorHistory([], document),
-      config: { zoom: 100 },
+      config,
     });
-
     commandExecutorRef.current = new HadixCommandExecutor(
       editorStateRef.current,
     );
+
+    setIsInitialized(true);
   }, []);
 
   const editorState = editorStateRef.current;
@@ -67,9 +86,11 @@ export const useHadixEditor = () => {
   }, [editorState]);
 
   return {
+    isInitialized,
     initializeEditor,
     editorState,
     editorDocument,
+    editorConfig,
     commandExecutor,
   };
 };
