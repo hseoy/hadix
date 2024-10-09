@@ -1,12 +1,14 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, ReactNode } from 'react';
 
 interface EditableContentProps {
   content: string;
+  prefixContent?: ReactNode;
   onUpdateContent: (content: string) => void;
 }
 
 const EditableContent: React.FC<EditableContentProps> = ({
   content,
+  prefixContent,
   onUpdateContent,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -37,22 +39,24 @@ const EditableContent: React.FC<EditableContentProps> = ({
     }
   }, [isEditing]);
 
-  return isEditing ? (
-    <input
-      ref={inputRef}
-      className="cursor-text text-sm text-gray-500 font-semibold px-2 py-1"
-      type="text"
-      value={editedContent}
-      onChange={e => setEditedContent(e.target.value)}
-      onBlur={onFocusOut}
-      onKeyDown={handleKeyDown}
-    />
-  ) : (
-    <div
-      className="cursor-text text-sm text-gray-500 font-semibold px-2 py-1"
-      onClick={handleClick}
-    >
-      {content}
+  return (
+    <div className="w-full flex items-center justify-center">
+      {isEditing ? (
+        <input
+          ref={inputRef}
+          className="cursor-text px-2 py-1 bg-transparent border-none outline-none text-center w-full"
+          type="text"
+          value={editedContent}
+          onChange={e => setEditedContent(e.target.value)}
+          onBlur={onFocusOut}
+          onKeyDown={handleKeyDown}
+        />
+      ) : (
+        <div className="cursor-text px-2 py-1" onClick={handleClick}>
+          {prefixContent && <span>{prefixContent}</span>}
+          {content}
+        </div>
+      )}
     </div>
   );
 };
