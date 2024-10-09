@@ -4,10 +4,7 @@ import {
   IObservableValue,
   ITransaction,
 } from '@/hadix-core/types/core';
-import {
-  isObservableValue,
-  observableValue,
-} from '@/hadix-core/ObservableValue';
+import { observableValue } from '@/hadix-core/ObservableValue';
 
 export class HadixEditorHistory implements IEditorHistory {
   private history: ITransaction[];
@@ -20,9 +17,7 @@ export class HadixEditorHistory implements IEditorHistory {
   ) {
     this.history = history;
     this.historyIndex = history.length - 1;
-    this.currentDocument = isObservableValue(currentDocument)
-      ? currentDocument
-      : observableValue(currentDocument);
+    this.currentDocument = observableValue(currentDocument);
   }
 
   getInitialDocument() {

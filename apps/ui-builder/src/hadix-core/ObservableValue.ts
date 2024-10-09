@@ -1,4 +1,4 @@
-import { IObservableValue, ISubscriber } from './types/core';
+import { IObservableValue, ISubscriber } from '@/hadix-core/types/core';
 
 export class ObservableValue<T> implements IObservableValue<T> {
   private value: T;
@@ -29,7 +29,12 @@ export class ObservableValue<T> implements IObservableValue<T> {
   }
 }
 
-export const observableValue = <T>(value: T) => new ObservableValue(value);
+export const observableValue = <T>(value: T | IObservableValue<T>) => {
+  if (isObservableValue(value)) {
+    return value;
+  }
+  return new ObservableValue(value);
+};
 
 export const isObservableValue = <T>(
   value: unknown,
